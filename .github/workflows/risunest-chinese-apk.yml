@@ -1,0 +1,87 @@
+name: Build RisuNest Chinese Android APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-chinese:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout official RisuNest 1.3.0 source
+        uses: actions/checkout@v4
+        with:
+          repository: rsyumi/RisuNest
+          ref: app-v1.3.0
+
+      - name: Enable Chinese interface choices
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('src/lang/uiLanguages.ts')
+          original = p.read_text(encoding='utf-8')
+          old = "    { value: 'ko', label: '한국어' },\n"
+          new = old + "    { value: 'cn', label: '简体中文' },\n    { value: 'zh-Hant', label: '繁體中文' },\n"
+          if original.count(old) != 1:
+              raise SystemExit('Unexpected source format: language choices not patched')
+          modified = original.replace(old, new)
+          old_block = "    const primary = locale.split('-')[0]\n"
+          new_block = "    const tag = locale.replace(/_/g, '-').toLowerCase()\n    const primary = tag.split('-')[0]\n    if (primary === 'zh') {\n        return /(^|-)hant($|-)|(^|-)(tw|hk|mo)($|-)/.test(tag) ? 'zh-Hant' : 'cn'\n    }\n"
+          if modified.count(old_block) != 1:
+              raise SystemExit('Unexpected source format: system locale choice not patched')
+          modified = modified.replace(old_block, new_block)
+          p.write_text(modified, encoding='utf-8')
+          print(modified)
+          PY
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+
+      - name: Install Android SDK/NDK
+        timeout-minutes: 15
+        shell: bash
+        run: |
+          bash scripts/retry-command.sh sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+          echo "NDK_HOME=$ANDROID_HOME/ndk/28.2.13676358" >> "$GITHUB_ENV"
+
+      - name: Install project dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Initialize Android project if needed
+        if: ${{ hashFiles('src-tauri/gen/android/gradlew') == '' }}
+        run: pnpm android:init
+
+      - name: Prepare Gradle
+        shell: bash
+        run: |
+          chmod +x src-tauri/gen/android/gradlew
+          bash scripts/retry-command.sh bash src-tauri/gen/android/gradlew --version
+
+      - name: Build Chinese arm64 debug APK
+        run: pnpm android:build:arm64
+
+      - name: Upload Chinese APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RisuNest-1.3.0-Chinese-arm64-debug-APK
+          path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
+          retention-days: 7
