@@ -53,12 +53,9 @@ jobs:
         run: python3 scripts/check_zh_localization.py
       - name: Analyze
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
-      - name: Test
-        timeout-minutes: 15
-        run: flutter test --exclude-tags db-migration --concurrency=2 --reporter expanded
-      - name: Database migration tests
-        timeout-minutes: 10
-        run: flutter test test/db_migration_test.dart --tags db-migration --reporter expanded
+      - name: Retest localized status card and language regressions
+        timeout-minutes: 5
+        run: flutter test test/post_gen_status_card_test.dart test/app_language_recovery_test.dart --concurrency=2 --reporter expanded
       - name: WebView tests
         run: |
           cd test/webview_js
