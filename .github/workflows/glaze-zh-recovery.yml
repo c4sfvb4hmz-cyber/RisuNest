@@ -25,6 +25,9 @@ jobs:
           gzip -dc glaze-recovery.patch.gz > glaze-recovery.patch
           git -C glaze apply --check ../glaze-recovery.patch
           git -C glaze apply ../glaze-recovery.patch
+          gzip -dc glaze-recovery-extra.patch.gz > glaze-recovery-extra.patch
+          git -C glaze apply --check ../glaze-recovery-extra.patch
+          git -C glaze apply ../glaze-recovery-extra.patch
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -51,7 +54,11 @@ jobs:
       - name: Analyze
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
       - name: Test
-        run: flutter test --concurrency=2 --reporter expanded
+        timeout-minutes: 15
+        run: flutter test --exclude-tags db-migration --concurrency=2 --reporter expanded
+      - name: Database migration tests
+        timeout-minutes: 10
+        run: flutter test test/db_migration_test.dart --tags db-migration --reporter expanded
       - name: WebView tests
         run: |
           cd test/webview_js
@@ -60,6 +67,27 @@ jobs:
           npm test
       - name: Build arm64 Release APK (test signature)
         run: flutter build apk --release --target-platform android-arm64 --split-per-abi --dart-define=BUILD_CHANNEL=stable
+      - name: Verify APK and bundled Chinese assets
+        run: |
+          APK=build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          test -s "$APK"
+          unzip -t "$APK" > apk-zip-verification.txt
+          SIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$SIGNER" verify --verbose --print-certs "$APK" > apk-verification.txt
+          sha256sum "$APK" >> apk-verification.txt
+          python3 - <<'PYVERIFY' >> apk-verification.txt
+          import json,zipfile
+          path='build/app/outputs/flutter-apk/app-arm64-v8a-release.apk'
+          with zipfile.ZipFile(path) as z:
+              assert z.testzip() is None
+              root='assets/flutter_assets/assets/translations/'
+              en=json.loads(z.read(root+'en.json'));zh=json.loads(z.read(root+'zh.json'))
+              assert en.keys()==zh.keys()
+              assert zh['menu_language']=='语言'
+              assert z.read(root+'glossary_zh.json')
+              assert 'lib/arm64-v8a/libapp.so' in z.namelist()
+              print('PASS: APK CRC, ARM64 native app, bundled Chinese keys:',len(zh))
+          PYVERIFY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -67,5 +95,8 @@ jobs:
           path: |
             glaze/build/app/outputs/flutter-apk/*.apk
             glaze-recovery.patch.gz
+            glaze-recovery-extra.patch.gz
+            glaze/apk-verification.txt
+            glaze/apk-zip-verification.txt
             glaze/test/webview_js/test-results/
           if-no-files-found: warn
