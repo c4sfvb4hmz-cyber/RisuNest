@@ -1,1 +1,0 @@
-export const PENDING_SAVE_BYTE_LIMIT = 1_048_576

@@ -1,7 +1,0 @@
-{
-  "identifier": "macos-appearance",
-  "local": true,
-  "windows": ["main"],
-  "platforms": ["macOS"],
-  "permissions": ["core:window:allow-set-theme"]
-}

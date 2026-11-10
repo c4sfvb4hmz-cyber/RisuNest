@@ -1,3 +1,0 @@
-import { harnessConfig } from "../harnessConfig";
-
-export default harnessConfig("tokenizer");

@@ -1,0 +1,68 @@
+name: Glaze Chinese recovery APK
+on:
+  push:
+    branches: [build/glaze-zh-recovery-20261111]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CI: 'true'
+      FLUTTER_SUPPRESS_ANALYTICS: 'true'
+      BUILD_CHANNEL: stable
+    defaults:
+      run:
+        working-directory: glaze
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore pinned upstream and saved patch
+        working-directory: ${{ github.workspace }}
+        run: |
+          git clone --depth 1 --branch v0.9.0 https://github.com/hydall/Glaze.git glaze
+          test "$(git -C glaze rev-parse HEAD)" = fa6e38b4bc1c9a38b343ff1f536de97a59ecff4f
+          gzip -dc glaze-recovery.patch.gz > glaze-recovery.patch
+          git -C glaze apply --check ../glaze-recovery.patch
+          git -C glaze apply ../glaze-recovery.patch
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - name: Install pinned Flutter SDK
+        run: |
+          git clone --depth 1 --branch 3.44.9 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/flutter/bin/flutter" --version
+      - name: Prepare build
+        run: |
+          cp .env.example .env
+          mkdir -p "$HOME/.gradle"
+          printf '%s\n' 'org.gradle.jvmargs=-Xmx3G -XX:MaxMetaspaceSize=1G' 'org.gradle.workers.max=2' 'kotlin.compiler.execution.strategy=in-process' > "$HOME/.gradle/gradle.properties"
+          flutter pub get
+          dart run build_runner build
+          dart run easy_localization:generate -S assets/translations -s en.json -f keys -o locale_keys.g.dart
+      - name: Validate translations
+        run: python3 scripts/check_zh_localization.py
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - name: Test
+        run: flutter test --concurrency=2 --reporter expanded
+      - name: WebView tests
+        run: |
+          cd test/webview_js
+          npm ci
+          npx playwright install --with-deps chromium
+          npm test
+      - name: Build arm64 Release APK (test signature)
+        run: flutter build apk --release --target-platform android-arm64 --split-per-abi --dart-define=BUILD_CHANNEL=stable
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Glaze-0.9.0-zh-CN-recovery
+          path: |
+            glaze/build/app/outputs/flutter-apk/*.apk
+            glaze-recovery.patch.gz
+            glaze/test/webview_js/test-results/
+          if-no-files-found: warn

@@ -1,7 +1,0 @@
-node_modules/
-wrangler.jsonc
-.wrangler/
-.local/
-dist/
-worker-configuration.d.ts
-pnpm-lock.yaml
