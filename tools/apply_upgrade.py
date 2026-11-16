@@ -1,5 +1,5 @@
 """Apply the reviewed stable merge and display localization to restored Glaze."""
-import json,pathlib,re,shutil,subprocess,os
+import json,pathlib,re,shutil,subprocess,os,hashlib
 ROOT=pathlib.Path('glaze')
 LOC=pathlib.Path('localization')
 def read(p):return (ROOT/p).read_text()
@@ -33,6 +33,20 @@ for k,(a,b) in extra.items():en[k]=a;zh[k]=b;ru[k]='ru' if k=='glaze_bundled_loc
 zh={k:zh.get(k,v) for k,v in en.items()}
 for lang,obj in [('en',en),('ru',ru),('zh',zh)]:
     write('assets/translations/'+lang+'.json',json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
+
+# The resource guard must describe this official stable version, rather than
+# the retired v0.9.0 strings (some keys were deliberately removed upstream).
+contract = {}
+for lang in ['en', 'ru']:
+    original = json.loads(subprocess.check_output(
+        ['git', '-C', str(ROOT), 'show', 'v0.10.1:assets/translations/'+lang+'.json'],
+        text=True))
+    digest = hashlib.sha256(json.dumps(
+        original, ensure_ascii=False, sort_keys=True,
+        separators=(',', ':')).encode()).hexdigest()
+    contract[lang] = {'keys': list(original), 'sha256': digest}
+write('localization/upstream-contract.json',
+      json.dumps(contract, ensure_ascii=False, indent=2)+'\\n')
 
 # Generated lookup data is used by preset display only, never the transport,
 # prompt builder, original preset assets or user-message storage.
