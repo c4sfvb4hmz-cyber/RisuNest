@@ -1,0 +1,7 @@
+{
+  "source_strings": 853,
+  "translated_strings": 853,
+  "method": "offline Argos EN->ZH and RU->EN->ZH; exact-match display only",
+  "preserved": "original source prompts, user data, complete macros, tags, code fences, JSON examples and parser-sensitive headings",
+  "limitations": "Machine draft; core UI is manually translated. Technical macro arguments and embedded code remain original."
+}
