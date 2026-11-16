@@ -8590,7 +8590,7 @@ index 197e6075..43cc72d2 100644
        fallbackLocale: const Locale('en'),
        child: const _RestartableApp(),
 diff --git a/lib/shared/widgets/generic_editor.dart b/lib/shared/widgets/generic_editor.dart
-index aaa94273..741c9d82 100644
+index aaa94273..9e4f8571 100644
 --- a/lib/shared/widgets/generic_editor.dart
 +++ b/lib/shared/widgets/generic_editor.dart
 @@ -4,6 +4,7 @@ import 'dart:io';
@@ -8649,7 +8649,7 @@ index aaa94273..741c9d82 100644
 +    super.didChangeDependencies();
 +    if (!widget.localizeBundledText) return;
 +    // Register the locale dependency so switching language updates the view.
-+    context.locale;
++    EasyLocalization.of(context)?.locale;
 +    _syncingControllers = true;
 +    try {
 +      for (final section in widget.config) {
@@ -17289,7 +17289,7 @@ index 00000000..b353db66
 +});
 diff --git a/zh-upgrade-validation.json b/zh-upgrade-validation.json
 new file mode 100644
-index 00000000..43b34d80
+index 00000000..8b56f50a
 --- /dev/null
 +++ b/zh-upgrade-validation.json
 @@ -0,0 +1,12 @@
@@ -17298,8 +17298,8 @@ index 00000000..43b34d80
 +  "base_sha": "32def585e23f3d55266484ca8076012549260cf9",
 +  "ui_keys": 4237,
 +  "new_or_revised_ui_keys": 207,
-+  "bundled_display_entries": 891,
-+  "manual_bundled_entries": 406,
++  "bundled_display_entries": 902,
++  "manual_bundled_entries": 417,
 +  "machine_entries_rejected_for_macro_damage": 19,
 +  "preset_storage_unchanged": true,
 +  "real_device_install_tested": false,
