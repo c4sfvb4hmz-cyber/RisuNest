@@ -52,7 +52,7 @@ write('localization/upstream-contract.json',
 # prompt builder, original preset assets or user-message storage.
 catalog=json.loads((LOC/'bundled_zh.json').read_text())
 manual={}
-for f in ['bundled_manual_zh.json','bundled_core_zh.json','bundled_shino_zh.json','bundled_summary_defaults_zh.json']:
+for f in ['bundled_manual_zh.json','bundled_core_zh.json','bundled_shino_zh.json','bundled_summary_defaults_zh.json','bundled_studio_zh.json']:
     if (LOC/f).exists():manual.update(json.loads((LOC/f).read_text()))
 macros=lambda s:sorted(re.findall(r'\{\{[\s\S]*?\}\}',s))
 dropped=[]
