@@ -1,0 +1,262 @@
+00:00 +0: loading /home/runner/work/RisuNest/RisuNest/glaze/test/bundled_text_localization_test.dart
+00:00 +0: /home/runner/work/RisuNest/RisuNest/glaze/test/bundled_text_localization_test.dart: factory text is translated only in Chinese
+00:00 +1: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_controller_sync_test.dart: syncing a late-loaded item into the controllers never calls onChanged
+00:00 +2: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_controller_sync_test.dart: syncing a late-loaded item into the controllers never calls onChanged
+00:00 +2: /home/runner/work/RisuNest/RisuNest/glaze/test/bundled_text_localization_test.dart: preset editor shows Chinese but saves original unedited body
+[90m[🌎 Easy Localization] [DEBUG] Localization initialized[0m
+[90m[🌎 Easy Localization] [DEBUG] Start[0m
+[90m[🌎 Easy Localization] [DEBUG] Init state[0m
+[32m[🌎 Easy Localization] [INFO] Start locale loaded zh[0m
+[90m[🌎 Easy Localization] [DEBUG] Build[0m
+[90m[🌎 Easy Localization] [DEBUG] Init Localization Delegate[0m
+[90m[🌎 Easy Localization] [DEBUG] Init provider[0m
+[90m[🌎 Easy Localization] [DEBUG] Load Localization Delegate[0m
+[90m[🌎 Easy Localization] [DEBUG] Build[0m
+[90m[🌎 Easy Localization] [DEBUG] Init Localization Delegate[0m
+[90m[🌎 Easy Localization] [DEBUG] Init provider[0m
+00:00 +3: /home/runner/work/RisuNest/RisuNest/glaze/test/bundled_text_localization_test.dart: preset editor shows Chinese but saves original unedited body
+[32m[🌎 Easy Localization] [INFO] Locale en changed[0m
+[90m[🌎 Easy Localization] [DEBUG] Build[0m
+[90m[🌎 Easy Localization] [DEBUG] Init Localization Delegate[0m
+[90m[🌎 Easy Localization] [DEBUG] Init provider[0m
+[90m[🌎 Easy Localization] [DEBUG] Load Localization Delegate[0m
+00:01 +4: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_desktop_layout_test.dart: wide desktop editor puts the avatar beside the fields
+[34m[🌎 Easy Localization] [WARNING] Localization key [avatar] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [hint_change_avatar] not found[0m
+00:01 +5: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_fill_field_test.dart: the content takes the height the other fields leave
+00:01 +5: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_desktop_layout_test.dart: phone editor keeps the full-width avatar above the fields
+[34m[🌎 Easy Localization] [WARNING] Localization key [avatar] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [hint_change_avatar] not found[0m
+00:01 +6: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_fill_field_test.dart: the content takes the height the other fields leave
+00:02 +6: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_desktop_layout_test.dart: a select field opens an anchored dropdown on desktop
+[34m[🌎 Easy Localization] [WARNING] Localization key [avatar] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [hint_change_avatar] not found[0m
+00:02 +7: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_desktop_layout_test.dart: a select field opens an anchored dropdown on desktop
+[34m[🌎 Easy Localization] [WARNING] Localization key [avatar] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [hint_change_avatar] not found[0m
+00:02 +8: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_desktop_layout_test.dart: a select field opens an anchored dropdown on desktop
+00:02 +9: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_fill_field_test.dart: a long text makes the editor scroll instead of clipping
+00:02 +10: /home/runner/work/RisuNest/RisuNest/glaze/test/generic_editor_fill_field_test.dart: on a phone the content keeps its line-based height
+00:02 +11: /home/runner/work/RisuNest/RisuNest/glaze/test/app_language_recovery_test.dart: system locale resolves Chinese regions, Russian and unsupported locale
+00:02 +12: /home/runner/work/RisuNest/RisuNest/glaze/test/app_language_recovery_test.dart: explicit preference outranks legacy locale cache
+00:02 +13: /home/runner/work/RisuNest/RisuNest/glaze/test/app_language_recovery_test.dart: legacy-only selection migrates and choices persist
+00:03 +14: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_ledger_reconciliation_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +15: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +16: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +17: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +18: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +19: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +20: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +21: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +22: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +23: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +24: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +25: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +26: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +27: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +28: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +29: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Ledger reconciliation running badge
+00:03 +30: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows Ledger transport retry progress
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +31: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows Ledger parser repair progress
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +32: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows the Card evolution observation pass
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_card_observations_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +33: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: shows a distinct Card Rewriter running badge
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_card_rewriter_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +34: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: a running badge can always be dismissed by hand
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_ledger_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+00:03 +35: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: a stranded running badge is cleared by the watchdog
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_ledger_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+[PostGenStatus] watchdog cleared stranded ledger session=session-1
+00:03 +36: /home/runner/work/RisuNest/RisuNest/glaze/test/post_gen_status_card_test.dart: the watchdog leaves a newer running task alone
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_ledger_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_card_rewriter_running] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [recovery_ui_hide_status] not found[0m
+[PostGenStatus] watchdog cleared stranded cardRewriter session=session-1
+00:15 +37: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: the block list no longer carries a stash button
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+00:15 +38: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: opening a block hands the header its stash and delete buttons
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_stash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_delete] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [placeholder_block_name] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_role] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_insertion] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_depth] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_append_last_user] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_send_empty_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_content] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+00:16 +39: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: closing the editor takes the buttons away again
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_stash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_delete] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [placeholder_block_name] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_role] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_insertion] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_depth] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_append_last_user] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_send_empty_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_content] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+00:16 +40: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: delete removes the open block and returns to the list
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_stash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_delete] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [placeholder_block_name] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_role] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_insertion] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_depth] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_append_last_user] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_send_empty_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_content] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+00:16 +41: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: stash puts the open block away and returns to the list
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_stash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_delete] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [placeholder_block_name] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_role] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_insertion] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_depth] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_append_last_user] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_send_empty_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_content] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+00:16 +42: /home/runner/work/RisuNest/RisuNest/glaze/test/preset_block_editor_actions_test.dart: a block opened out of the stash offers to restore it instead
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [stash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_unstash] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [action_delete] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [placeholder_block_name] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_role] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_insertion] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_depth] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_append_last_user] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [label_send_empty_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_content] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [section_advanced_settings] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [add_block] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+[34m[🌎 Easy Localization] [WARNING] Localization key [glaze_bundled_locale] not found[0m
+00:16 +43: All tests passed!

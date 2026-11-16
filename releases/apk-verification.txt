@@ -1,0 +1,20 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v3.2 scheme (APK Signature Scheme v3.2): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+V2 Signer: certificate DN: C=US, O=Android, CN=Android Debug
+V2 Signer: certificate SHA-256 digest: a5443193f367950e3460479bccefa99ec29adabcc071310a6b50f49dd8f039e6
+V2 Signer: certificate SHA-1 digest: e4beddee5c7afbcec406dee0789d0a1191c59b5c
+V2 Signer: certificate MD5 digest: 04aeacaebf1417680fbdf85b87bfef2f
+V2 Signer: key algorithm: RSA
+V2 Signer: key size (bits): 2048
+V2 Signer: public key SHA-256 digest: d42074a29338d337af90ea409877544181fafcbb428ab1c3e8198ee16e5f1309
+V2 Signer: public key SHA-1 digest: 782c211a6be440395c47b33878c7128c3455c762
+V2 Signer: public key MD5 digest: 9630b8d6888b0b4c39a9ada79e5875b9
+d31398eeef8c801f96a9e4e38550580e66b98d6a76b13c76b778a9266c92b045  delivery/Glaze-0.10.1-zh-CN-arm64-test-signed.apk
+PASS: CRC, ARM64 native library, Chinese resource keys: 4237

@@ -1,0 +1,12 @@
+{
+  "version": "0.10.1",
+  "apk": "Glaze-0.10.1-zh-CN-arm64-test-signed.apk",
+  "size_bytes": 59027294,
+  "sha256": "d31398eeef8c801f96a9e4e38550580e66b98d6a76b13c76b778a9266c92b045",
+  "build_run": 43974344089,
+  "signing": "test",
+  "architecture": "arm64",
+  "device_install_tested": false,
+  "live_model_api_tested": false,
+  "long_prompt_translations": "machine-assisted reading drafts, with manually reviewed common prompts; originals retained"
+}
