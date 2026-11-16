@@ -116,6 +116,7 @@ class _GenericEditorState extends State<GenericEditor> {
   Timer? _saveTimer;
   bool _hasPendingSave = false;
   bool _syncingControllers = false;
+  bool _showBundledOriginal = false;
 
   /// Whether the editor is laid out for desktop; refreshed every build.
   bool _desktop = false;
@@ -168,7 +169,8 @@ class _GenericEditorState extends State<GenericEditor> {
   }
 
   String _displayText(String value) =>
-      widget.localizeBundledText ? bundledText(value) : value;
+      widget.localizeBundledText && !(_showBundledOriginal && value.length > 120)
+          ? bundledText(value) : value;
 
   @override
   void didChangeDependencies() {
@@ -507,6 +509,44 @@ class _GenericEditorState extends State<GenericEditor> {
         _desktop &&
         !widget.showAvatar;
     final sections = [
+      if (widget.localizeBundledText &&
+          'glaze_bundled_locale'.tr() == 'zh' &&
+          _localItem.values.whereType<String>().any(
+            (value) => value.length > 120 && bundledText(value) != value,
+          ))
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'glaze_bundled_translation_note'.tr(),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() => _showBundledOriginal = !_showBundledOriginal);
+                  _syncingControllers = true;
+                  try {
+                    for (final entry in _controllers.entries) {
+                      final value = _localItem[entry.key];
+                      if (value is String && value.length > 120) {
+                        entry.value.text = _displayText(value);
+                      }
+                    }
+                  } finally {
+                    _syncingControllers = false;
+                  }
+                },
+                child: Text(
+                  (_showBundledOriginal
+                      ? 'glaze_bundled_show_chinese'
+                      : 'glaze_bundled_show_original').tr(),
+                ),
+              ),
+            ],
+          ),
+        ),
       for (final section in widget.config) _buildSection(section),
     ];
 
