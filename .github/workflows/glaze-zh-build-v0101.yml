@@ -1,0 +1,132 @@
+name: Glaze 0.10.1 Chinese APK
+on:
+  push:
+    branches: [build/glaze-zh-complete-20261117]
+    paths: ['.github/workflows/glaze-zh-build-v0101.yml']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CI: 'true'
+      FLUTTER_SUPPRESS_ANALYTICS: 'true'
+      BUILD_CHANNEL: stable
+    defaults:
+      run:
+        working-directory: glaze
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore saved work and upgrade to pinned stable
+        working-directory: ${{ github.workspace }}
+        run: |
+          git config --global user.name "Glaze localization"
+          git config --global user.email "glaze-localization@users.noreply.github.com"
+          git clone --depth 1 --branch v0.9.0 https://github.com/hydall/Glaze.git glaze
+          test "$(git -C glaze rev-parse HEAD)" = fa6e38b4bc1c9a38b343ff1f536de97a59ecff4f
+          gzip -dc glaze-recovery.patch.gz > /tmp/base.patch
+          gzip -dc glaze-recovery-extra.patch.gz > /tmp/extra.patch
+          git -C glaze apply --check /tmp/base.patch
+          git -C glaze apply /tmp/base.patch
+          git -C glaze apply --check /tmp/extra.patch
+          git -C glaze apply /tmp/extra.patch
+          git -C glaze add .
+          git -C glaze commit -m "Restore verified prior Chinese localization"
+          git -C glaze fetch --depth=200 origin tag v0.10.1
+          test "$(git -C glaze rev-parse v0.10.1)" = 32def585e23f3d55266484ca8076012549260cf9
+          git -C glaze merge --no-commit --no-ff v0.10.1 || test -n "$(git -C glaze diff --name-only --diff-filter=U)"
+          python3 -m py_compile tools/apply_upgrade.py
+          python3 tools/apply_upgrade.py
+          git -C glaze add .
+          git -C glaze commit -m "Upgrade to v0.10.1 and expand Chinese preset display"
+          git -C glaze diff --check v0.10.1
+          mkdir -p checkpoints
+          git -C glaze diff --binary v0.10.1 > checkpoints/Glaze-0.10.1-zh-CN.patch
+          gzip -c checkpoints/Glaze-0.10.1-zh-CN.patch > checkpoints/Glaze-0.10.1-zh-CN.patch.gz
+          cp glaze/zh-upgrade-validation.json checkpoints/
+          git add checkpoints
+          git commit -m "Checkpoint: persist complete stable-version Chinese source patch before compilation"
+          git pull --rebase origin build/glaze-zh-complete-20261117
+          git push origin HEAD:build/glaze-zh-complete-20261117
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Install pinned Flutter SDK
+        run: |
+          git clone --depth 1 --branch 3.44.9 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/flutter/bin/flutter" --version
+      - name: Prepare generated code
+        run: |
+          cp .env.example .env
+          mkdir -p "$HOME/.gradle"
+          printf '%s\n' 'org.gradle.jvmargs=-Xmx3G -XX:MaxMetaspaceSize=1G' 'org.gradle.workers.max=2' 'kotlin.compiler.execution.strategy=in-process' > "$HOME/.gradle/gradle.properties"
+          flutter pub get
+          dart run build_runner build
+          dart run easy_localization:generate -S assets/translations -s en.json -f keys -o locale_keys.g.dart
+      - name: Validate Chinese resources and JavaScript
+        run: |
+          python3 scripts/check_zh_localization.py
+          node --check assets/chat_webview/formatter/image_blocks.js
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - name: Core localization and editor regression tests
+        timeout-minutes: 10
+        run: |
+          flutter test test/bundled_text_localization_test.dart test/generic_editor_controller_sync_test.dart test/generic_editor_desktop_layout_test.dart test/generic_editor_fill_field_test.dart test/app_language_recovery_test.dart test/post_gen_status_card_test.dart test/preset_import_test.dart test/preset_block_editor_actions_test.dart --concurrency=2 --reporter expanded 2>&1 | tee focused-tests.log
+      - name: Full non-migration Flutter regression
+        timeout-minutes: 20
+        run: |
+          find test -name '*_test.dart' ! -path 'test/db/migration/*' ! -name '*_golden_test.dart' -print0 | xargs -0 flutter test --concurrency=2 --reporter expanded > flutter-tests.log 2>&1 || { tail -150 flutter-tests.log; exit 1; }
+          tail -8 flutter-tests.log
+      - name: WebView browser regression
+        timeout-minutes: 10
+        run: |
+          cd test/webview_js
+          npm ci
+          npx playwright install --with-deps chromium
+          npm test 2>&1 | tee ../../webview-tests.log
+      - name: Build ARM64 Release APK with test signing
+        run: flutter build apk --release --target-platform android-arm64 --split-per-abi --dart-define=BUILD_CHANNEL=stable
+      - name: Verify installation package and create delivery archive
+        run: |
+          mkdir -p delivery
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk delivery/Glaze-0.10.1-zh-CN-arm64-test-signed.apk
+          APK=delivery/Glaze-0.10.1-zh-CN-arm64-test-signed.apk
+          unzip -t "$APK" > delivery/apk-zip-verification.txt
+          SIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$SIGNER" verify --verbose --print-certs "$APK" > delivery/apk-verification.txt
+          sha256sum "$APK" >> delivery/apk-verification.txt
+          python3 - <<'PYVERIFY' >> delivery/apk-verification.txt
+          import json,zipfile
+          with zipfile.ZipFile('delivery/Glaze-0.10.1-zh-CN-arm64-test-signed.apk') as z:
+              assert z.testzip() is None
+              base='assets/flutter_assets/assets/translations/'
+              en=json.loads(z.read(base+'en.json'));zh=json.loads(z.read(base+'zh.json'))
+              assert en.keys()==zh.keys()
+              assert zh['summary_prompt_presets_title']=='聊天摘要提示词'
+              assert zh['glaze_bundled_locale']=='zh'
+              assert 'lib/arm64-v8a/libapp.so' in z.namelist()
+              print('PASS: CRC, ARM64 native library, Chinese resource keys:',len(zh))
+          PYVERIFY
+          cp zh-upgrade-validation.json delivery/
+          cp ../checkpoints/Glaze-0.10.1-zh-CN.patch* delivery/
+          cp focused-tests.log flutter-tests.log webview-tests.log delivery/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Glaze-0.10.1-zh-CN-delivery
+          path: |
+            glaze/delivery/
+            checkpoints/
+            glaze/zh-upgrade-validation.json
+            glaze/focused-tests.log
+            glaze/flutter-tests.log
+            glaze/webview-tests.log
+          if-no-files-found: warn
