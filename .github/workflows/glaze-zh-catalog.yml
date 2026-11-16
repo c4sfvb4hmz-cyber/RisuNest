@@ -1,0 +1,49 @@
+name: Glaze bundled Chinese catalog
+on:
+  push:
+    branches: [build/glaze-zh-complete-20261117]
+    paths: ['.github/workflows/glaze-zh-catalog.yml']
+permissions:
+  contents: write
+jobs:
+  translate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    env:
+      ARGOS_DEVICE_TYPE: cpu
+      OMP_NUM_THREADS: '2'
+      CT2_INTER_THREADS: '1'
+      CT2_INTRA_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore pinned public source
+        run: |
+          git clone --depth 1 --branch v0.10.1 https://github.com/hydall/Glaze.git glaze
+          test "$(git -C glaze rev-parse HEAD)" = 32def585e23f3d55266484ca8076012549260cf9
+          python3 -m py_compile tools/build_bundled_catalog.py
+      - name: Prepare offline translation tools
+        run: |
+          python3 -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python3 -m pip install argostranslate
+          python3 -m pip freeze > localization/translation-toolchain.txt
+      - name: Translate bundled text with protected syntax
+        run: python3 -u tools/build_bundled_catalog.py
+      - name: Save recoverable catalog checkpoint
+        if: always()
+        run: |
+          git config user.name "Glaze localization"
+          git config user.email "glaze-localization@users.noreply.github.com"
+          git add localization
+          if ! git diff --cached --quiet; then
+            git commit -m "Checkpoint: preserve offline Chinese catalog and toolchain"
+            git pull --rebase origin build/glaze-zh-complete-20261117
+            git push origin HEAD:build/glaze-zh-complete-20261117
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Glaze-bundled-Chinese-catalog
+          path: localization/
