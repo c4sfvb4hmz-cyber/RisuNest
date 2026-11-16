@@ -1,0 +1,64 @@
+name: Preserve Glaze APK download
+on:
+  push:
+    branches: [build/glaze-zh-complete-20261117]
+    paths: ['.github/workflows/glaze-zh-delivery.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preserve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN_ID: '43973000804'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for verified build in the same Glaze branch
+        run: |
+          for attempt in $(seq 1 80); do
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID" > /tmp/run.json
+            STATUS=$(python3 -c 'import json;print(json.load(open("/tmp/run.json"))["status"])')
+            if [ "$STATUS" = completed ]; then break; fi
+            sleep 30
+          done
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/run.json'))
+          assert r['head_branch']=='build/glaze-zh-complete-20261117'
+          assert r['status']=='completed' and r['conclusion']=='success',r['conclusion']
+          PY
+      - name: Download build output and verify APK bytes
+        run: |
+          gh run download "$SOURCE_RUN_ID" --repo "$GITHUB_REPOSITORY" --name Glaze-0.10.1-zh-CN-delivery --dir artifact
+          python3 - <<'PY'
+          import pathlib,json,zipfile,hashlib,shutil
+          apk=next(pathlib.Path('artifact').rglob('Glaze-0.10.1-zh-CN-arm64-test-signed.apk'))
+          assert apk.stat().st_size>10_000_000
+          with zipfile.ZipFile(apk) as z:
+              assert z.testzip() is None
+              root='assets/flutter_assets/assets/translations/'
+              assert json.loads(z.read(root+'zh.json'))['glaze_bundled_locale']=='zh'
+              assert 'lib/arm64-v8a/libapp.so' in z.namelist()
+          out=pathlib.Path('releases');out.mkdir(exist_ok=True)
+          shutil.copy2(apk,out/apk.name)
+          report={'version':'0.10.1','apk':apk.name,'size_bytes':apk.stat().st_size,
+                  'sha256':hashlib.sha256(apk.read_bytes()).hexdigest(),
+                  'build_run':43973000804,'signing':'test','architecture':'arm64',
+                  'device_install_tested':False,'live_model_api_tested':False,
+                  'long_prompt_translations':'machine-assisted reading drafts, with manually reviewed common prompts; originals retained'}
+          (out/'Glaze-0.10.1-zh-CN-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          for name in ['apk-verification.txt','zh-upgrade-validation.json','focused-tests.log','flutter-tests.log','webview-tests.log']:
+              found=list(pathlib.Path('artifact').rglob(name))
+              if found:shutil.copy2(found[0],out/name)
+          print(json.dumps(report,ensure_ascii=False))
+          PY
+      - name: Preserve actual APK in independent branch for direct download
+        run: |
+          git config user.name "Glaze localization"
+          git config user.email "glaze-localization@users.noreply.github.com"
+          git add releases
+          git commit -m "Deliver verified Glaze v0.10.1 Chinese ARM64 test APK and test logs"
+          git pull --rebase origin build/glaze-zh-complete-20261117
+          git push origin HEAD:build/glaze-zh-complete-20261117
