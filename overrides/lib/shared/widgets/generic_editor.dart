@@ -177,7 +177,7 @@ class _GenericEditorState extends State<GenericEditor> {
     super.didChangeDependencies();
     if (!widget.localizeBundledText) return;
     // Register the locale dependency so switching language updates the view.
-    context.locale;
+    EasyLocalization.of(context)?.locale;
     _syncingControllers = true;
     try {
       for (final section in widget.config) {
