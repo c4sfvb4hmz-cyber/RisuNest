@@ -40,7 +40,7 @@ catalog=json.loads((LOC/'bundled_zh.json').read_text())
 manual={}
 for f in ['bundled_manual_zh.json','bundled_core_zh.json','bundled_shino_zh.json','bundled_summary_defaults_zh.json']:
     if (LOC/f).exists():manual.update(json.loads((LOC/f).read_text()))
-macros=lambda s:re.findall(r'\{\{[\s\S]*?\}\}',s)
+macros=lambda s:sorted(re.findall(r'\{\{[\s\S]*?\}\}',s))
 dropped=[]
 fixes={
  '混凝土':'具体','内存条目':'记忆条目','内存段落':'记忆段落','过去紧张':'过去时态',
