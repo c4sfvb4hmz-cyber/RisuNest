@@ -1,0 +1,12 @@
+{
+  "target": "v0.10.1",
+  "base_sha": "32def585e23f3d55266484ca8076012549260cf9",
+  "ui_keys": 4237,
+  "new_or_revised_ui_keys": 207,
+  "bundled_display_entries": 891,
+  "manual_bundled_entries": 406,
+  "machine_entries_rejected_for_macro_damage": 19,
+  "preset_storage_unchanged": true,
+  "real_device_install_tested": false,
+  "live_api_generation_tested": false
+}
