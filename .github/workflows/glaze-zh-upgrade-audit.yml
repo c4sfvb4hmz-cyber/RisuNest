@@ -1,0 +1,86 @@
+name: Glaze 0.10.1 Chinese upgrade audit
+on:
+  push:
+    branches: [build/glaze-zh-complete-20261117]
+    paths: ['.github/workflows/glaze-zh-upgrade-audit.yml']
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore localized baseline and merge stable upgrade
+        run: |
+          git config --global user.name "Glaze localization"
+          git config --global user.email "glaze-localization@users.noreply.github.com"
+          git clone --depth 1 --branch v0.9.0 https://github.com/hydall/Glaze.git glaze
+          test "$(git -C glaze rev-parse HEAD)" = fa6e38b4bc1c9a38b343ff1f536de97a59ecff4f
+          gzip -dc glaze-recovery.patch.gz > /tmp/base.patch
+          gzip -dc glaze-recovery-extra.patch.gz > /tmp/extra.patch
+          git -C glaze apply --check /tmp/base.patch
+          git -C glaze apply /tmp/base.patch
+          git -C glaze apply --check /tmp/extra.patch
+          git -C glaze apply /tmp/extra.patch
+          git -C glaze add .
+          git -C glaze commit -m "Restore saved v0.9.0 Chinese baseline"
+          git -C glaze fetch --depth=200 origin tag v0.10.1
+          git -C glaze merge --no-commit --no-ff v0.10.1 || test -n "$(git -C glaze diff --name-only --diff-filter=U)"
+      - name: Preserve upgrade conflicts and untranslated source
+        run: |
+          python3 - <<'PY'
+          import pathlib,json,re,shutil,subprocess
+          root=pathlib.Path('glaze');out=pathlib.Path('audit');out.mkdir(exist_ok=True)
+          def git(*args):return subprocess.check_output(['git','-C',str(root),*args],text=True)
+          def save(name,data):
+              p=out/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
+          conflicts=git('diff','--name-only','--diff-filter=U').splitlines()
+          save('upgrade.json',{'base':'v0.9.0','target':'v0.10.1','target_sha':git('rev-parse','v0.10.1').strip(),'conflicts':conflicts,'apk_built':False})
+          for p in conflicts:
+              for stage,name in [(1,'base'),(2,'localized'),(3,'upstream')]:
+                  try:s=git('show',':'+str(stage)+':'+p)
+                  except subprocess.CalledProcessError:continue
+                  dest=out/'conflicts'/name/p;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(s)
+          olden=json.loads(git('show','HEAD:assets/translations/en.json'));oldzh=json.loads((root/'assets/translations/zh.json').read_text())
+          for lang in ['en','ru']:
+              old=json.loads(git('show','HEAD:assets/translations/'+lang+'.json'))
+              new=json.loads(git('show','v0.10.1:assets/translations/'+lang+'.json'))
+              for k,v in old.items():
+                  if k not in new and k not in json.loads(git('show','v0.9.0:assets/translations/'+lang+'.json')):new[k]=v
+              dest=root/'assets/translations'/ (lang+'.json');dest.write_text(json.dumps(new,ensure_ascii=False,indent=2)+'\n')
+          newen=json.loads((root/'assets/translations/en.json').read_text())
+          save('new-ui-strings.json',{k:v for k,v in newen.items() if k not in oldzh or olden.get(k)!=v})
+          entries=[]
+          for p in root.joinpath('lib').rglob('*.dart'):
+              for n,line in enumerate(p.read_text().splitlines(),1):
+                  if re.search(r"(?:Text\s*\(|label(?:Text)?\s*:|hintText\s*:|tooltip\s*:|title\s*:|description\s*:|helperText\s*:)",line) and re.search(r"['\"][A-Za-z][^'\"]*\s[^'\"]*['\"]",line) and '.tr(' not in line and not line.lstrip().startswith(('//','*')):
+                      entries.append({'file':str(p.relative_to(root)),'line':n,'text':line.strip()})
+          save('ui-candidates.json',entries)
+          presets={}
+          for p in root.joinpath('assets/presets').glob('*.json'):
+              data=json.loads(p.read_text());strings=[]
+              def walk(v,path=''):
+                  if isinstance(v,dict):
+                      for k,x in v.items():
+                          if isinstance(x,str) and k in ('name','title','description','content','prompt','prefix','suffix'):
+                              strings.append({'path':path+'/'+k,'length':len(x),'text':x if k not in ('content','prompt') else x[:120]})
+                          elif isinstance(x,(list,dict)):walk(x,path+'/'+k)
+                  elif isinstance(v,list):
+                      for i,x in enumerate(v):walk(x,path+'/'+str(i))
+              walk(data);presets[p.name]=strings
+          save('preset-fields.json',presets)
+          selected=['lib/core/services/preset_defaults.dart','lib/core/services/memory_prompt_presets.dart','lib/core/services/summary_prompt_presets.dart','lib/core/services/translation_prompt_presets.dart','lib/core/services/featured_presets.dart','lib/core/db/studio_preset_seed.dart','lib/core/llm/summary_service.dart','lib/features/presets/widgets/preset_block_row.dart','lib/features/presets/widgets/preset_block_group_row.dart','lib/features/presets/preset_editor_screen.dart','lib/shared/widgets/prompt_preset_list.dart','lib/features/presets/studio_preset_editor_screen.dart','lib/core/services/preset_seeder.dart']
+          for p in sorted(set(selected+conflicts)):
+              if not (root/p).exists():continue
+              dest=out/'sources'/p;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(root/p,dest)
+          print('Conflicts:',conflicts);print('New UI keys:',len(json.loads((out/'new-ui-strings.json').read_text())));print('UI candidates:',len(entries))
+          PY
+          git add audit
+          git commit -m "Checkpoint: preserve v0.10.1 merge audit and unchanged prior localization"
+          git push origin HEAD:build/glaze-zh-complete-20261117
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Glaze-0.10.1-merge-audit
+          path: audit/
