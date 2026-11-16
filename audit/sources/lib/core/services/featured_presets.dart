@@ -1,0 +1,161 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart' show rootBundle;
+
+import '../import/silly_tavern_preset_parser.dart';
+import '../models/preset.dart';
+
+/// A built-in "featured" preset shipped with the app, mirroring hydall/Glaze's
+/// `userDefaultPresets`. The SillyTavern-format JSON and the cover image are
+/// bundled assets under `assets/presets/`.
+class FeaturedPreset {
+  final String id;
+  final String name;
+  final String author;
+
+  /// Translation key of the one-line pitch for a screen that offers the
+  /// preset. None does right now: the onboarding's preset step, which showed
+  /// it, is gone, and the preset list shows these presets like any other.
+  final String descriptionKey;
+
+  /// Bundled ST-format preset JSON.
+  final String jsonAsset;
+
+  /// Bundled cover image shown on the Tools preset card.
+  final String imageAsset;
+  final int createdAt;
+  final bool reasoningEnabled;
+  final String? reasoningStart;
+  final String? reasoningEnd;
+
+  /// Bumped when the bundled JSON changes in a way existing installs should
+  /// pick up. The seeder refreshes a preset whose stored revision is older (see
+  /// `seedFeaturedPresets`), so leave it at 1 for a preset that has never
+  /// shipped an update.
+  final int revision;
+
+  /// The bundled JSON and cover of the revision before [revision], kept so the
+  /// seeder can tell whether the user edited it. An edited copy is kept next
+  /// to the update as "Old `name`" instead of being overwritten. Without them
+  /// an update simply replaces the stored preset.
+  final String? previousJsonAsset;
+  final String? previousImageAsset;
+
+  const FeaturedPreset({
+    required this.id,
+    required this.name,
+    required this.author,
+    required this.descriptionKey,
+    required this.jsonAsset,
+    required this.imageAsset,
+    required this.createdAt,
+    this.reasoningEnabled = false,
+    this.reasoningStart,
+    this.reasoningEnd,
+    this.revision = 1,
+    this.previousJsonAsset,
+    this.previousImageAsset,
+  });
+}
+
+/// The standard presets from hydall/Glaze, in display order.
+const featuredPresets = <FeaturedPreset>[
+  FeaturedPreset(
+    id: 'default_shino',
+    descriptionKey: 'preset_shino_desc',
+    name: 'Shino',
+    author: 'Shino',
+    jsonAsset: 'assets/presets/shino.json',
+    imageAsset: 'assets/presets/shino.jpg',
+    createdAt: 1,
+    reasoningEnabled: true,
+    reasoningStart: '<rp_plan>',
+    reasoningEnd: '</rp_plan>',
+    // v2: the Gemini 3.8 "flash" rewrite of the bundled Shino preset.
+    // v3: reasoning parsed from the <rp_plan> block the prompt asks for, and
+    // the Language block off by default.
+    revision: 3,
+  ),
+  FeaturedPreset(
+    id: 'default_fawnie',
+    descriptionKey: 'preset_fawnie_desc',
+    name: 'Fawnie v3',
+    author: 'fawn1e',
+    jsonAsset: 'assets/presets/fawnie.json',
+    imageAsset: 'assets/presets/fawnie.jpg',
+    createdAt: 2,
+  ),
+  FeaturedPreset(
+    id: 'default_microcot',
+    descriptionKey: 'preset_microcot_desc',
+    name: 'MicroCot Talks Mini',
+    author: 'MicroCoT',
+    jsonAsset: 'assets/presets/microcot.json',
+    imageAsset: 'assets/presets/mikrokot.jpg',
+    createdAt: 3,
+  ),
+  FeaturedPreset(
+    id: 'default_renri',
+    descriptionKey: 'preset_renri_desc',
+    name: 'Renri',
+    author: 'nimda trashcan',
+    jsonAsset: 'assets/presets/renri.json',
+    imageAsset: 'assets/presets/renri.jpg',
+    createdAt: 4,
+    // v2: Renri Dream Engine GODDESS LITE 5.51.
+    revision: 2,
+    previousJsonAsset: 'assets/presets/renri_old.json',
+    previousImageAsset: 'assets/presets/renri_old.jpg',
+  ),
+  FeaturedPreset(
+    id: 'default_norimyn',
+    descriptionKey: 'preset_norimyn_desc',
+    name: 'NoriMyn',
+    author: 'NoriMyn',
+    jsonAsset: 'assets/presets/norimyn.json',
+    imageAsset: 'assets/presets/norimyn.jpg',
+    createdAt: 5,
+    reasoningEnabled: true,
+    reasoningStart: '<think>',
+    reasoningEnd: '</think>',
+    // v2: NoriMyn for 4Argon 3.8 Flash.
+    revision: 2,
+    previousJsonAsset: 'assets/presets/norimyn_old.json',
+    previousImageAsset: 'assets/presets/norimyn_old.jpg',
+  ),
+];
+
+/// Cover-image asset for a preset id, or `null` when the id is not one of the
+/// bundled featured presets.
+String? featuredPresetImageAsset(String? presetId) {
+  if (presetId == null) return null;
+  for (final f in featuredPresets) {
+    if (f.id == presetId) return f.imageAsset;
+  }
+  return null;
+}
+
+/// Whether [presetId] is one of the bundled featured presets. Their author and
+/// cover image are part of the shipped preset, so the editor must not let the
+/// user change either (a clone gets a fresh id and is fully editable).
+bool isFeaturedPreset(String? presetId) =>
+    presetId != null && featuredPresets.any((f) => f.id == presetId);
+
+/// Loads and parses a featured preset's bundled ST JSON into a [Preset],
+/// stamping the fixed id/name/author/metadata so re-seeding is idempotent.
+/// [jsonAsset] loads another bundled revision of it, such as
+/// [FeaturedPreset.previousJsonAsset].
+Future<Preset> loadFeaturedPreset(FeaturedPreset f, {String? jsonAsset}) async {
+  final raw = await rootBundle.loadString(jsonAsset ?? f.jsonAsset);
+  final json = jsonDecode(raw) as Map<String, dynamic>;
+  final parsed = parseSillyTavernPreset(json, f.name);
+  return parsed.copyWith(
+    id: f.id,
+    name: f.name,
+    author: f.author,
+    createdAt: f.createdAt,
+    reasoningEnabled: f.reasoningEnabled || parsed.reasoningEnabled,
+    reasoningStart: f.reasoningStart ?? parsed.reasoningStart,
+    reasoningEnd: f.reasoningEnd ?? parsed.reasoningEnd,
+  );
+}

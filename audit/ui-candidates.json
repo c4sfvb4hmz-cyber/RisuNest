@@ -1,0 +1,287 @@
+[
+  {
+    "file": "lib/core/models/studio_preset_block_groups.dart",
+    "line": 114,
+    "text": "title: 'Previous section closing tag',"
+  },
+  {
+    "file": "lib/core/models/studio_preset_block_groups.dart",
+    "line": 124,
+    "text": "title: 'Closing tag',"
+  },
+  {
+    "file": "lib/core/models/studio_preset_block_groups.dart",
+    "line": 135,
+    "text": "title: 'Opening tag',"
+  },
+  {
+    "file": "lib/core/models/studio_preset_block_groups.dart",
+    "line": 155,
+    "text": "title: 'Closing tag',"
+  },
+  {
+    "file": "lib/core/models/studio_preset_block_groups.dart",
+    "line": 163,
+    "text": "title: 'Closing tag',"
+  },
+  {
+    "file": "lib/core/services/update_check_service.dart",
+    "line": 270,
+    "text": "label: 'nightly · ${headSha.substring(0, 7)}',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 26,
+    "text": "label: 'Recap (recommended)',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 31,
+    "text": "label: 'State of play',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 36,
+    "text": "label: 'Bullet facts',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 41,
+    "text": "label: 'Minimal (2-3 sentences)',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 109,
+    "text": "label: 'Keep continuity (recommended)',"
+  },
+  {
+    "file": "lib/core/services/summary_prompt_presets.dart",
+    "line": 150,
+    "text": "label: 'Keep facts (recommended)',"
+  },
+  {
+    "file": "lib/core/services/translation_prompt_presets.dart",
+    "line": 29,
+    "text": "label: 'Literary (recommended)',"
+  },
+  {
+    "file": "lib/core/services/translation_prompt_presets.dart",
+    "line": 34,
+    "text": "label: 'Literal / faithful',"
+  },
+  {
+    "file": "lib/core/services/translation_prompt_presets.dart",
+    "line": 39,
+    "text": "label: 'Casual & natural',"
+  },
+  {
+    "file": "lib/core/services/memory_prompt_presets.dart",
+    "line": 7,
+    "text": "label: 'Detailed beats (recommended)',"
+  },
+  {
+    "file": "lib/core/services/memory_prompt_presets.dart",
+    "line": 12,
+    "text": "label: 'Concise narrative',"
+  },
+  {
+    "file": "lib/core/services/memory_prompt_presets.dart",
+    "line": 17,
+    "text": "label: 'Structured (markdown)',"
+  },
+  {
+    "file": "lib/core/services/memory_prompt_presets.dart",
+    "line": 22,
+    "text": "label: 'Minimal (1-2 sentences)',"
+  },
+  {
+    "file": "lib/core/llm/vector_rebuild_service.dart",
+    "line": 234,
+    "text": "label: 'Session ${session.sessionIndex}',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 11,
+    "text": "label: 'OpenAI o200k',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 17,
+    "text": "label: 'OpenAI cl100k',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 24,
+    "text": "label: 'Gemini / Gemma',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 30,
+    "text": "label: 'Llama 3',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 34,
+    "text": "llama2(id: 'llama2', label: 'Llama 2', models: 'Llama 2', package: 'llama2'),"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 49,
+    "text": "label: 'Mistral (Tekken)',"
+  },
+  {
+    "file": "lib/core/llm/tokenizers/tokenizer_kind.dart",
+    "line": 55,
+    "text": "label: 'Command R',"
+  },
+  {
+    "file": "lib/features/presets/studio_preset_editor_screen.dart",
+    "line": 342,
+    "text": "title: 'New Block',"
+  },
+  {
+    "file": "lib/features/presets/studio_preset_editor_screen.dart",
+    "line": 383,
+    "text": "title: 'Closing tag',"
+  },
+  {
+    "file": "lib/features/presets/preset_editor_screen.dart",
+    "line": 639,
+    "text": "subtitle: _author.isNotEmpty ? 'by $_author' : null,"
+  },
+  {
+    "file": "lib/features/chat/quick_replies_provider.dart",
+    "line": 84,
+    "text": "QuickReply(id: 'tell-more', label: 'Tell more', text: 'Tell me more.'),"
+  },
+  {
+    "file": "lib/features/chat/quick_replies_provider.dart",
+    "line": 85,
+    "text": "QuickReply(id: 'what-next', label: 'What next?', text: 'What happens next?'),"
+  },
+  {
+    "file": "lib/features/chat/quick_replies_provider.dart",
+    "line": 86,
+    "text": "QuickReply(id: 'look-around', label: 'Look around', text: '*looks around*'),"
+  },
+  {
+    "file": "lib/features/dev/spinner_demo_screen.dart",
+    "line": 197,
+    "text": "_Sample(label: 'Glaze 18', child: GlazeSpinner(size: 18)),"
+  },
+  {
+    "file": "lib/features/dev/spinner_demo_screen.dart",
+    "line": 199,
+    "text": "label: 'Material 18',"
+  },
+  {
+    "file": "lib/features/character_list/character_detail_screen.dart",
+    "line": 518,
+    "text": "title: 'Export $name',"
+  },
+  {
+    "file": "lib/features/settings/theme_editor_screen.dart",
+    "line": 441,
+    "text": "label: 'Font Size',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 41,
+    "text": "description: 'Character name.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 57,
+    "text": "description: 'Short personality summary.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 64,
+    "text": "description: 'Setting and circumstances of the roleplay.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 71,
+    "text": "description: 'Opening message the character sends to start a chat.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 78,
+    "text": "description: 'Other opening messages the user can swipe to.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 95,
+    "text": "description: 'Card-specific system prompt. Usually left empty.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 110,
+    "text": "description: 'Notes for the reader of the card; never sent to the model.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 117,
+    "text": "description: 'Library tags.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 125,
+    "text": "description: 'Card author.',"
+  },
+  {
+    "file": "lib/features/model_tools/character_card_fields.dart",
+    "line": 132,
+    "text": "description: 'Card version string.',"
+  },
+  {
+    "file": "lib/features/chat/widgets/studio_prompt_preview_tab.dart",
+    "line": 266,
+    "text": "'reason: ${_unavailableText(entry.unavailableReason!)}',"
+  },
+  {
+    "file": "lib/features/extensions/models/preset_permissions.dart",
+    "line": 98,
+    "text": "generateText('generate_text', 'Call LLM (glaze.generateText)'),"
+  },
+  {
+    "file": "lib/features/extensions/screens/preset_editor/sections/profiles_section.dart",
+    "line": 219,
+    "text": "label: 'Top P',"
+  },
+  {
+    "file": "lib/features/character_list/widgets/character_folders_section.dart",
+    "line": 97,
+    "text": "title: 'Our Picks',"
+  },
+  {
+    "file": "lib/features/character_list/widgets/character_card.dart",
+    "line": 603,
+    "text": "title: 'Export $_displayName',"
+  },
+  {
+    "file": "lib/features/character_list/widgets/character_card.dart",
+    "line": 664,
+    "text": "description: 'Delete $_displayName? This cannot be undone.',"
+  },
+  {
+    "file": "lib/features/catalog/widgets/janitor_lorebook_capture_sheet.dart",
+    "line": 492,
+    "text": "name: book.title.isNotEmpty ? book.title : 'Janitor Lorebook',"
+  },
+  {
+    "file": "lib/features/catalog/services/janitor_extractor.dart",
+    "line": 600,
+    "text": "if (desc.isNotEmpty) parts.add('Catalog description:\\n$desc');"
+  },
+  {
+    "file": "lib/features/catalog/services/janitor_public_lorebook.dart",
+    "line": 78,
+    "text": "name: title.isNotEmpty ? title : 'Janitor Lorebook',"
+  },
+  {
+    "file": "lib/features/catalog/services/janitor_public_lorebook.dart",
+    "line": 229,
+    "text": "id: scriptId, title: title, error: 'response was not JSON');"
+  }
+]
