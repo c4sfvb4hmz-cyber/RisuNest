@@ -129,3 +129,5 @@ jobs:
             glaze/flutter-tests.log
             glaze/webview-tests.log
           if-no-files-found: warn
+
+# Retest standalone editor locale fallback and reviewed Studio instructions.
