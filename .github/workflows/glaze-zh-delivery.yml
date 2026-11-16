@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 45
     env:
       GH_TOKEN: ${{ github.token }}
-      SOURCE_RUN_ID: '43973000804'
+      SOURCE_RUN_ID: '43974344089'
     steps:
       - uses: actions/checkout@v4
       - name: Wait for verified build in the same Glaze branch
@@ -45,7 +45,7 @@ jobs:
           shutil.copy2(apk,out/apk.name)
           report={'version':'0.10.1','apk':apk.name,'size_bytes':apk.stat().st_size,
                   'sha256':hashlib.sha256(apk.read_bytes()).hexdigest(),
-                  'build_run':43973000804,'signing':'test','architecture':'arm64',
+                  'build_run':43974344089,'signing':'test','architecture':'arm64',
                   'device_install_tested':False,'live_model_api_tested':False,
                   'long_prompt_translations':'machine-assisted reading drafts, with manually reviewed common prompts; originals retained'}
           (out/'Glaze-0.10.1-zh-CN-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
