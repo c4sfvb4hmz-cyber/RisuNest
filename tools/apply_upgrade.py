@@ -46,7 +46,7 @@ for lang in ['en', 'ru']:
         separators=(',', ':')).encode()).hexdigest()
     contract[lang] = {'keys': list(original), 'sha256': digest}
 write('localization/upstream-contract.json',
-      json.dumps(contract, ensure_ascii=False, indent=2)+'\\n')
+      json.dumps(contract, ensure_ascii=False, indent=2)+'\n')
 
 # Generated lookup data is used by preset display only, never the transport,
 # prompt builder, original preset assets or user-message storage.
