@@ -39,6 +39,8 @@ jobs:
           git -C glaze merge --no-commit --no-ff v0.10.1 || test -n "$(git -C glaze diff --name-only --diff-filter=U)"
           python3 -m py_compile tools/apply_upgrade.py
           python3 tools/apply_upgrade.py
+          python3 glaze/scripts/check_zh_localization.py
+          node --check glaze/assets/chat_webview/formatter/image_blocks.js
           git -C glaze add .
           git -C glaze commit -m "Upgrade to v0.10.1 and expand Chinese preset display"
           git -C glaze diff --check v0.10.1
@@ -71,10 +73,6 @@ jobs:
           flutter pub get
           dart run build_runner build
           dart run easy_localization:generate -S assets/translations -s en.json -f keys -o locale_keys.g.dart
-      - name: Validate Chinese resources and JavaScript
-        run: |
-          python3 scripts/check_zh_localization.py
-          node --check assets/chat_webview/formatter/image_blocks.js
       - name: Analyze
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
       - name: Core localization and editor regression tests
