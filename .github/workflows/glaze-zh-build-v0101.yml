@@ -15,6 +15,7 @@ jobs:
       BUILD_CHANNEL: stable
     defaults:
       run:
+        shell: bash
         working-directory: glaze
     steps:
       - uses: actions/checkout@v4
