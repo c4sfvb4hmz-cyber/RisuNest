@@ -1,0 +1,329 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+[WebServer] (node:32) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 305 tests using 2 workers
+
+(node:44) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:45) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:44) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:45) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/305] [chromium] › specs/attachments.spec.js:67:1 › a single attachment keeps the free-size block
+[2/305] [chromium] › specs/attachments.spec.js:76:1 › two attachments sit side by side, not one under the other
+[3/305] [chromium] › specs/attachments.spec.js:91:1 › three attachments lay out as one tall tile plus two stacked
+[4/305] [chromium] › specs/attachments.spec.js:102:1 › four attachments form a 2x2 grid of equal tiles
+[5/305] [chromium] › specs/attachments.spec.js:125:1 › more attachments than the grid can lay out are dropped
+[6/305] [chromium] › specs/attachments.spec.js:132:1 › attachments load eagerly, not lazily
+[7/305] [chromium] › specs/attachments.spec.js:142:1 › the whole block carries one eye toggle, whatever the count
+[8/305] [chromium] › specs/attachments.spec.js:152:1 › an empty attachment list builds nothing at all
+[9/305] [chromium] › specs/attachments.spec.js:157:1 › a click on any tile hands that tile to the app
+[10/305] [chromium] › specs/cards.spec.js:13:1 › no card leaves formatter bookkeeping or a page error behind
+[11/305] [chromium] › specs/cards.spec.js:21:1 › an HTML table keeps its own structure
+[12/305] [chromium] › specs/cards.spec.js:45:1 › a CSS-only card keeps the checkbox and its target siblings
+[13/305] [chromium] › specs/cards.spec.js:64:1 › a void element inside a card is not escaped into text
+[14/305] [chromium] › specs/cards.spec.js:79:1 › an inline SVG is left alone
+[15/305] [chromium] › specs/cards.spec.js:96:1 › <details> keeps its summary and toggles
+[16/305] [chromium] › specs/cards.spec.js:118:1 › a <summary> is laid out by the card alone
+[17/305] [chromium] › specs/cards.spec.js:143:1 › a <br> inside a card stays inside that card
+[18/305] [chromium] › specs/cards.spec.js:157:1 › a composite card keeps its structure and its styling
+[19/305] [chromium] › specs/cards.spec.js:182:1 › form controls survive as markup
+[20/305] [chromium] › specs/cards.spec.js:198:1 › prose keeps its angle brackets
+[21/305] [chromium] › specs/cards.spec.js:206:1 › a tag inside backticks is shown, not rendered
+[22/305] [chromium] › specs/cards.spec.js:222:1 › a fenced code block shows its HTML as text
+[23/305] [chromium] › specs/cards.spec.js:239:1 › a fenced code block keeps the <style> and <script> it shows
+[24/305] [chromium] › specs/cards.spec.js:255:1 › a <style> tag in backticks does not swallow the rest of the message
+[25/305] [chromium] › specs/cards.spec.js:271:1 › a reasoning block with a <script> renders without placeholders
+[26/305] [chromium] › specs/cards.spec.js:281:1 › markdown prose renders emphasis, strike and quotes
+[27/305] [chromium] › specs/cards.spec.js:301:1 › markdown structure renders headings, lists and a table
+[28/305] [chromium] › specs/cards.spec.js:325:1 › ordered markdown list preserves a zero start
+[29/305] [chromium] › specs/cards.spec.js:342:1 › blockquote and horizontal rule render as elements
+[30/305] [chromium] › specs/cards.spec.js:356:1 › quotes keep their spans, including curly and nested guillemets
+[31/305] [chromium] › specs/cards.spec.js:374:1 › an unclosed curly quote stays formatted while streaming
+[32/305] [chromium] › specs/cards.spec.js:390:1 › Glaze colour markers render as styled spans
+[33/305] [chromium] › specs/cards.spec.js:407:1 › an inline <think> block becomes a reasoning panel
+[34/305] [chromium] › specs/cards.spec.js:423:1 › a markdown image keeps its options button inside the wrapper
+[35/305] [chromium] › specs/cards.spec.js:442:1 › a pending image block renders its placeholder
+[36/305] [chromium] › specs/cards.spec.js:460:1 › a finished image block renders its variant switcher
+[37/305] [chromium] › specs/cards.spec.js:477:1 › a finished image keeps the place its card gave it
+[38/305] [chromium] › specs/cards.spec.js:502:1 › inline tags in prose keep their paragraphs and their markdown
+[39/305] [chromium] › specs/cards.spec.js:524:1 › emphasis around a regex-built card leaves the card alone
+[40/305] [chromium] › specs/cards.spec.js:559:1 › code in a <pre> is never read as markdown
+[41/305] [chromium] › specs/cards.spec.js:575:1 › a marker cannot open inside an element and close outside it
+[42/305] [chromium] › specs/cards.spec.js:597:1 › a marker that spans balanced inline markup still holds it
+[43/305] [chromium] › specs/cards.spec.js:619:1 › a gradient <font> carries its fill down to the text
+[44/305] [chromium] › specs/cards.spec.js:638:1 › an image tag inside a reasoning panel stays text
+[45/305] [chromium] › specs/cards.spec.js:656:1 › an audio embed shrinks to the message instead of overhanging it
+[46/305] [chromium] › specs/cards.spec.js:680:1 › emphasis inside dialogue keeps the quote colour
+[47/305] [chromium] › specs/chat_chrome.spec.js:85:1 › the keys are handed out once, and only they drive the chrome
+[48/305] [chromium] › specs/chat_chrome.spec.js:107:1 › the safe-area insets reach theme CSS as sat and sab
+[49/305] [chromium] › specs/chat_chrome.spec.js:123:1 › page queries and page CSS cannot reach the chrome
+[50/305] [chromium] › specs/chat_chrome.spec.js:160:1 › a removed host is put back
+[51/305] [chromium] › specs/chat_chrome.spec.js:171:1 › only trusted input becomes an intent
+[52/305] [chromium] › specs/chat_chrome.spec.js:193:1 › typing reports the text, and a patched prototype sees no chrome node
+[53/305] [chromium] › specs/chat_chrome.spec.js:245:1 › the send button follows the field on every keystroke, without Flutter
+[54/305] [chromium] › specs/chat_chrome.spec.js:307:1 › plugin chat panels draw over the chrome
+[55/305] [chromium] › specs/code_block_copy.spec.js:46:1 › every fenced block gets a header with a copy button
+[56/305] [chromium] › specs/code_block_copy.spec.js:66:1 › the copy button sends the block code, as written, to Flutter
+[57/305] [chromium] › specs/composer_wheel.spec.js:130:1 › a wheel notch over the composer scrolls the field, not the chat
+[58/305] [chromium] › specs/composer_wheel.spec.js:149:1 › a pan over the composer scrolls the field too
+[59/305] [chromium] › specs/composer_wheel.spec.js:167:1 › a notch over the chat still scrolls the chat
+[60/305] [chromium] › specs/composer_wheel.spec.js:177:1 › past the field's end the step stops there: the chat behind stays put
+[61/305] [chromium] › specs/composer_wheel.spec.js:197:1 › at the field's top a notch up goes nowhere either
+[62/305] [chromium] › specs/context_limit.spec.js:42:1 › the rule is drawn inside the message the prompt starts at
+[63/305] [chromium] › specs/context_limit.spec.js:53:1 › moving the boundary leaves exactly one rule behind
+[64/305] [chromium] › specs/context_limit.spec.js:62:1 › an empty boundary retires the rule
+[65/305] [chromium] › specs/context_limit.spec.js:71:1 › a re-render redraws the rule without another push
+[66/305] [chromium] › specs/context_limit.spec.js:82:1 › a boundary this chat has no message for draws nothing
+[67/305] [chromium] › specs/context_limit.spec.js:94:1 › a prompt with no room for the chat draws the rule under the newest message
+[68/305] [chromium] › specs/document_contract.spec.js:13:1 › INV-MR1 a card script declares the function its onclick calls
+[69/305] [chromium] › specs/document_contract.spec.js:24:1 › INV-MR1 a message script leaves no <script> behind
+[70/305] [chromium] › specs/document_contract.spec.js:36:1 › INV-MR3/MR4 document lookups find the message's own elements
+[71/305] [chromium] › specs/document_contract.spec.js:43:1 › INV-MR3 a lookup the message cannot answer still reaches the document
+[72/305] [chromium] › specs/document_contract.spec.js:50:1 › INV-MR6 a modal handed to document.body stays under the message CSS
+[73/305] [chromium] › specs/document_contract.spec.js:70:1 › INV-MR7 the load events a card waits for still arrive
+[74/305] [chromium] › specs/document_contract.spec.js:77:1 › INV-MR5 an @import is hoisted into the document head
+[75/305] [chromium] › specs/document_contract.spec.js:101:1 › INV-MR5 the same sheet is hoisted once, however many renders
+[76/305] [chromium] › specs/document_contract.spec.js:113:1 › INV-MR5 only https is hoisted; the rest is reported
+[77/305] [chromium] › specs/document_contract.spec.js:131:1 › INV-MR5 an embedded data: @font-face is registered with the document
+[78/305] [chromium] › specs/document_contract.spec.js:155:1 › INV-MR5 an https @font-face is registered with the document
+[79/305] [chromium] › specs/document_contract.spec.js:171:1 › INV-MR5 an http @font-face is refused and reported
+[80/305] [chromium] › specs/document_contract.spec.js:187:1 › INV-MR2 the app keeps its own document while a message runs
+[81/305] [chromium] › specs/document_contract.spec.js:202:1 › INV-MR8 message scripts stay off when the toggle is off
+[82/305] [chromium] › specs/document_contract.spec.js:216:1 › a card script survives its own comparisons
+[83/305] [chromium] › specs/document_contract.spec.js:231:1 › a card script keeps its template literals
+[84/305] [chromium] › specs/document_contract.spec.js:241:1 › INV-MR1 currentScript describes the element the script was written in
+[85/305] [chromium] › specs/document_contract.spec.js:272:1 › INV-MR8 a timer a card schedules runs with the message document
+[86/305] [chromium] › specs/document_contract.spec.js:287:1 › INV-MR8 the app's own listeners and timers keep the app's document
+[87/305] [chromium] › specs/document_scroll_lock.spec.js:44:1 › the document is locked so only the chat container scrolls
+[88/305] [chromium] › specs/document_scroll_lock.spec.js:65:1 › a caret reveal scrolls the container and leaves the document at zero
+[89/305] [chromium] › specs/document_scroll_lock.spec.js:103:1 › a visual viewport pan is undone
+[90/305] [chromium] › specs/document_scroll_lock.spec.js:140:1 › a document scroll is undone and handed to the container
+[91/305] [chromium] › specs/edit_caret_reveal.spec.js:66:1 › a caret behind the composer is revealed above it
+[92/305] [chromium] › specs/edit_caret_reveal.spec.js:92:1 › the container carries scroll padding for both edges
+[93/305] [chromium] › specs/edit_caret_reveal.spec.js:114:1 › entering edit mode leaves the chat where it was
+[94/305] [chromium] › specs/edit_caret_reveal.spec.js:167:1 › growing a bottom-pinned editor does not re-pin the chat
+[95/305] [chromium] › specs/edit_keeps_attachments.spec.js:36:1 › attachments survive a cancelled edit
+[96/305] [chromium] › specs/edit_keeps_attachments.spec.js:45:1 › attachments survive a saved edit, whichever lands first
+[97/305] [chromium] › specs/edit_keeps_attachments.spec.js:74:1 › attachments are hidden while the textarea is open
+[98/305] [chromium] › specs/edit_survives_background_update.spec.js:44:1 › a background update leaves the open editor and its text alone
+[99/305] [chromium] › specs/edit_survives_background_update.spec.js:65:1 › the saved text still lands after a mid-edit background update
+[100/305] [chromium] › specs/extblocks_compat.spec.js:113:1 › a script of the original finds its variables and services
+[101/305] [chromium] › specs/extblocks_compat.spec.js:149:1 › the original's services reach the app through glaze.extBlocks*
+[102/305] [chromium] › specs/extblocks_compat.spec.js:209:1 › STscript fails plainly, and a plain script keeps the strict sandbox
+[103/305] [chromium] › specs/extblocks_page.spec.js:129:1 › a script returns its value and what it draws stays on the page
+[104/305] [chromium] › specs/extblocks_page.spec.js:165:1 › a script reads the chat from a hidden mirror in SillyTavern's markup
+[105/305] [chromium] › specs/extblocks_page.spec.js:237:1 › the page has the stored localStorage and no internet without external media
+[106/305] [chromium] › specs/extblocks_page.spec.js:208:1 › glaze calls reach the chat bridge; not while the page restores
+[107/305] [chromium] › specs/extblocks_page.spec.js:257:1 › a script error comes back as the action's failure
+[108/305] [chromium] › specs/external_media.spec.js:37:1 › on: a message loads its external media as written
+[109/305] [chromium] › specs/external_media.spec.js:48:1 › off: every third-party load is dropped, the rest of the card stays
+[110/305] [chromium] › specs/external_media.spec.js:76:1 › off: a page without a <style> URL keeps its CSS byte-identical
+[111/305] [chromium] › specs/external_media.spec.js:86:1 › off: an escaped url() cannot slip past the filter
+[112/305] [chromium] › specs/external_media.spec.js:97:1 › off: ExtBlock HTML drops external images too
+[113/305] [chromium] › specs/game_time_clock.spec.js:72:1 › a clock still lands before the body on a plain reply
+[114/305] [chromium] › specs/game_time_clock.spec.js:35:1 › a clock stamped on a reasoning reply lands between reasoning and body
+[115/305] [chromium] › specs/gen_stat_badges.spec.js:80:1 › a finished reply shows its token count
+[116/305] [chromium] › specs/gen_stat_badges.spec.js:89:1 › the token count is dropped while the reply streams
+[117/305] [chromium] › specs/gen_stat_badges.spec.js:104:1 › the token count comes back when the continuation lands
+[118/305] [chromium] › specs/gen_stat_badges.spec.js:126:1 › the elapsed time keeps updating across the same window
+[119/305] [chromium] › specs/gen_stat_badges.spec.js:143:1 › bubble layout: the count returns to the stat row, not the #N chip
+[120/305] [chromium] › specs/gen_stat_badges.spec.js:178:1 › the clock leads the row it is rebuilt into
+[121/305] [chromium] › specs/gen_timer_first_tick.spec.js:61:1 › battery saver paints the clock without waiting out its full second
+[122/305] [chromium] › specs/gen_timer_first_tick.spec.js:75:1 › the full-rate clock lands one badge on the bubble too
+[123/305] [chromium] › specs/gen_timer_first_tick.spec.js:90:1 › the first paint leaves exactly one gen-stat behind
+[124/305] [chromium] › specs/gen_timer_first_tick.spec.js:104:1 › priming stops as soon as the bubble is found
+[125/305] [chromium] › specs/gen_timer_first_tick.spec.js:115:1 › a clock already running is not restarted by the generation edge
+[126/305] [chromium] › specs/gen_timer_first_tick.spec.js:157:1 › a regenerated bubble gets the clock too
+[127/305] [chromium] › specs/gen_timer_first_tick.spec.js:165:1 › the clock keeps counting once the reply starts arriving
+[128/305] [chromium] › specs/gen_timer_first_tick.spec.js:186:1 › the clock releases its bubble when the run ends
+[129/305] [chromium] › specs/imggen_timer_retry.spec.js:59:1 › a retried generation starts its clock over
+[130/305] [chromium] › specs/imggen_timer_retry.spec.js:86:1 › a re-render mid-generation does not restart the clock
+[131/305] [chromium] › specs/imggen_user_message.spec.js:24:1 › a user message keeps its image tag as text
+[132/305] [chromium] › specs/imggen_user_message.spec.js:38:1 › an assistant message still renders the placeholder
+[133/305] [chromium] › specs/interaction.spec.js:10:1 › a fragment link lights up the :target panel it points at
+[134/305] [chromium] › specs/interaction.spec.js:20:1 › a link in the message is handed to the app, not followed
+[135/305] [chromium] › specs/interaction.spec.js:33:1 › markup and CSS survive with message scripts off
+[136/305] [chromium] › specs/interaction.spec.js:51:1 › a card script is dropped, and the app is told, when scripts are off
+[137/305] [chromium] › specs/interaction.spec.js:65:1 › an image block reports the block a tap belongs to
+[138/305] [chromium] › specs/keyboard_scroll_range.spec.js:59:1 › an overlaying keyboard leaves the end of the list reachable
+[139/305] [chromium] › specs/keyboard_scroll_range.spec.js:91:1 › an embedder that resizes the WebView does not get padded twice
+[140/305] [chromium] › specs/load_older_scroll.spec.js:83:3 › scrolling up through a prepended page never blanks or jumps (native scroll anchoring, load at 0px)
+[141/305] [chromium] › specs/load_older_scroll.spec.js:83:3 › scrolling up through a prepended page never blanks or jumps (native scroll anchoring, load at 400px)
+[142/305] [chromium] › specs/load_older_scroll.spec.js:83:3 › scrolling up through a prepended page never blanks or jumps (no native scroll anchoring, load at 0px)
+[143/305] [chromium] › specs/load_older_scroll.spec.js:83:3 › scrolling up through a prepended page never blanks or jumps (no native scroll anchoring, load at 400px)
+[144/305] [chromium] › specs/local_image_retry.spec.js:40:1 › a local image that fails once is re-requested and then loads
+[145/305] [chromium] › specs/local_image_retry.spec.js:68:1 › the retry is bounded, not an endless loop
+[146/305] [chromium] › specs/local_image_retry.spec.js:85:1 › a remote image is not retried
+[147/305] [chromium] › specs/message_persona.spec.js:63:1 › a message keeps the avatar of the persona it was sent as
+[148/305] [chromium] › specs/message_persona.spec.js:82:1 › switching persona does not repaint the messages already sent
+[149/305] [chromium] › specs/message_persona.spec.js:105:1 › a deleted persona keeps its name and falls back to its letter
+[150/305] [chromium] › specs/message_persona.spec.js:134:1 › a message with no stored persona still follows the active one
+[151/305] [chromium] › specs/message_update_batcher.spec.js:7:1 › a throwing update does not drop the rest of the batch
+[152/305] [chromium] › specs/output_limit_chip.spec.js:46:1 › a cut-off reply renders the warning between body and footer
+[153/305] [chromium] › specs/output_limit_chip.spec.js:60:1 › updates add and drop the warning with the variation
+[154/305] [chromium] › specs/output_limit_chip.spec.js:84:1 › tapping the warning asks Flutter for the explanation sheet
+[155/305] [chromium] › specs/placeholder_lifecycle.spec.js:49:1 › a delta that lands after the placeholder was taken away is dropped
+[156/305] [chromium] › specs/placeholder_lifecycle.spec.js:74:1 › a delta batched across the removal does not resurrect the bubble
+[157/305] [chromium] › specs/placeholder_lifecycle.spec.js:92:1 › opening another chat does not carry the typing bubble into it
+[158/305] [chromium] › specs/placeholder_lifecycle.spec.js:116:1 › a re-render of the same chat still carries the typing bubble
+[159/305] [chromium] › specs/placeholder_lifecycle.spec.js:142:1 › a placeholder the list lost mid-run is still re-created
+[160/305] [chromium] › specs/placeholder_lifecycle.spec.js:159:1 › a chat reopened after its run ended does not reopen with the bubble
+[161/305] [chromium] › specs/placeholder_lifecycle.spec.js:181:1 › a retired bubble cannot be brought back by a leftover delta
+[162/305] [chromium] › specs/placeholder_lifecycle.spec.js:200:1 › retiring does not cut short an exit animation already running
+[163/305] [chromium] › specs/plugins.spec.js:66:1 › send:before handlers rewrite and cancel in plugin order
+[164/305] [chromium] › specs/plugins.spec.js:88:1 › a throwing handler keeps the text and the chain going
+[165/305] [chromium] › specs/plugins.spec.js:100:1 › generation:success may not empty the reply
+[166/305] [chromium] › specs/plugins.spec.js:112:1 › calls carry the identity of the frame, not what the plugin claims
+[167/305] [chromium] › specs/plugins.spec.js:133:1 › plugin frames are sandboxed away from the chat page
+[168/305] [chromium] › specs/plugins.spec.js:148:1 › only granted methods exist on the glaze object
+[169/305] [chromium] › specs/plugins.spec.js:157:1 › emit reaches the plugin's other frames; events reach all frames
+[170/305] [chromium] › specs/plugins.spec.js:175:1 › a panel takes taps only where it draws
+[171/305] [chromium] › specs/plugins.spec.js:207:1 › the sync variable cache and the storage shim
+[172/305] [chromium] › specs/plugins.spec.js:227:1 › panels are told to avoid the status bar, not the app header
+[173/305] [chromium] › specs/plugins.spec.js:241:1 › the storage shim refuses a write past its quota, like a browser
+[174/305] [chromium] › specs/plugins.spec.js:266:1 › actions run the main handler and report a missing one
+[175/305] [chromium] › specs/plugins.spec.js:280:1 › file handlers return text, or the next one is tried
+[176/305] [chromium] › specs/plugins.spec.js:306:1 › Tavo plugins read messages through tavo.message
+[177/305] [chromium] › specs/plugins.spec.js:330:1 › Tavo plugins get tavo.* mapped onto glaze.*
+[178/305] [chromium] › specs/plugins.spec.js:350:1 › Tavo regex rules keep their display / prompt scope
+[179/305] [chromium] › specs/plugins.spec.js:379:1 › glaze.net.fetch goes through the app and answers with a Response
+[180/305] [chromium] › specs/plugins.spec.js:410:1 › what a frame sends and gets back reaches the request log
+[181/305] [chromium] › specs/plugins.spec.js:464:1 › without the network permission nothing is loaded from outside
+[182/305] [chromium] › specs/plugins.spec.js:480:1 › with the network permission hosts are logged
+[183/305] [chromium] › specs/plugins.spec.js:495:1 › a frame without internet access cannot navigate away, and is removed
+[184/305] [chromium] › specs/plugins.spec.js:514:1 › with a host list only those hosts are reachable
+[185/305] [chromium] › specs/plugins.spec.js:546:1 › loopback needs no local network access; a private host does
+[186/305] [chromium] › specs/plugins.spec.js:574:1 › what plugin frames post never reaches the page past the plugin host
+[187/305] [chromium] › specs/plugins.spec.js:609:1 › without a guard, WebRTC is refused unless any host is allowed
+[188/305] [chromium] › specs/plugins.spec.js:625:1 › the WebView guard gives WebRTC back only for any host and the right key
+[189/305] [chromium] › specs/plugins.spec.js:654:1 › a message panel reaches the app through its host, once
+[190/305] [chromium] › specs/plugins.spec.js:688:1 › hooks and notifications need their permissions
+[191/305] [chromium] › specs/plugins.spec.js:716:1 › variable updates reach only the plugin that owns them
+[192/305] [chromium] › specs/plugins.spec.js:731:1 › panel scripts before the head run under the policy, after the SDK
+[193/305] [chromium] › specs/plugins.spec.js:748:1 › a converted plugin sees only tavo, and nothing of the host
+[194/305] [chromium] › specs/plugins.spec.js:808:1 › a panel button dragged into the safe bottom comes back
+[195/305] [chromium] › specs/plugins.spec.js:830:1 › a panel button restored into the safe bottom is moved out on open
+[196/305] [chromium] › specs/plugins.spec.js:840:1 › a panel button anchored by bottom keeps that anchor
+[197/305] [chromium] › specs/plugins.spec.js:851:1 › a full-screen panel is left where the plugin put it
+[198/305] [chromium] › specs/plugins.spec.js:890:1 › a large floating window restored into the safe bottom is moved out
+[199/305] [chromium] › specs/plugins.spec.js:900:1 › a floating window may overlap the app header and the message box
+[200/305] [chromium] › specs/plugins.spec.js:913:1 › a tall floating window past the safe top is brought back
+[201/305] [chromium] › specs/plugins.spec.js:925:1 › a tall floating window dropped past the bottom comes back
+[202/305] [chromium] › specs/plugins.spec.js:984:1 › the focused panel is fitted above the keyboard and back
+[203/305] [chromium] › specs/plugins.spec.js:1003:1 › the keyboard of something else leaves a panel full size
+[204/305] [chromium] › specs/plugins.spec.js:1072:1 › with a plugin layer the chat page leaves chat panels to it
+[205/305] [chromium] › specs/plugins.spec.js:1096:1 › the plugin layer holds chat panels only, drawn whole
+[206/305] [chromium] › specs/plugins.spec.js:1132:1 › two panels in the plugin layer are clipped to take their own taps
+[207/305] [chromium] › specs/plugins.spec.js:1171:3 › a served panel loads its own files, and only those (glaze)
+[208/305] [chromium] › specs/plugins.spec.js:1171:3 › a served panel loads its own files, and only those (tavo)
+[209/305] [chromium] › specs/plugins.spec.js:1186:1 › a frame document is served once, from the package path
+[210/305] [chromium] › specs/plugins.spec.js:1196:1 › a raw package page runs nothing
+[211/305] [chromium] › specs/plugins.spec.js:1242:1 › a Tavo main script and its chat panels share one page
+[212/305] [chromium] › specs/plugins.spec.js:1256:1 › the shared page is where the chat panels are
+[213/305] [chromium] › specs/reading_position.spec.js:97:3 › a row that grows above the reader does not move the text under them (native scroll anchoring)
+[214/305] [chromium] › specs/reading_position.spec.js:116:3 › a row that shrinks above the reader does not move the text under them (native scroll anchoring)
+[215/305] [chromium] › specs/reading_position.spec.js:97:3 › a row that grows above the reader does not move the text under them (no native scroll anchoring)
+[216/305] [chromium] › specs/reading_position.spec.js:116:3 › a row that shrinks above the reader does not move the text under them (no native scroll anchoring)
+[217/305] [chromium] › specs/reading_position.spec.js:139:1 › a bottom-pinned reader still follows a row that grows above them
+[218/305] [chromium] › specs/reasoning_block_lifecycle.spec.js:56:1 › a reasoning reply renders its box
+[219/305] [chromium] › specs/reasoning_block_lifecycle.spec.js:64:1 › regenerating with a non-reasoning model drops the box
+[220/305] [chromium] › specs/reasoning_block_lifecycle.spec.js:84:1 › swiping back to the reasoning variation rebuilds the box
+[221/305] [chromium] › specs/reasoning_block_lifecycle.spec.js:111:1 › the rebuilt box sits above the reply, not after it
+[222/305] [chromium] › specs/reasoning_stream_interaction.spec.js:33:3 › split reasoning keeps the answer outside reasoning when untouched
+[223/305] [chromium] › specs/reasoning_stream_interaction.spec.js:33:3 › split reasoning keeps the answer outside reasoning when expanded
+[224/305] [chromium] › specs/reasoning_stream_interaction.spec.js:33:3 › split reasoning keeps the answer outside reasoning when toggled repeatedly
+[225/305] [chromium] › specs/reasoning_stream_interaction.spec.js:51:1 › inline think details stay readable while the answer streams outside them
+[226/305] [chromium] › specs/reasoning_stream_interaction.spec.js:65:1 › closing inline reasoning during a stream keeps it closed on completion
+[227/305] [chromium] › specs/reasoning_stream_interaction.spec.js:77:1 › inline panel state does not leak to another completed variation
+[228/305] [chromium] › specs/reasoning_stream_interaction.spec.js:95:3 › phone layout › a long expanded thought leaves a separate visible answer after completion
+[229/305] [chromium] › specs/scroll_to_top.spec.js:66:1 › opening a long chat does not show the button before the reader scrolls
+[230/305] [chromium] › specs/scroll_to_top.spec.js:77:1 › scrolling up arms the button, returning to the top hides it
+[231/305] [chromium] › specs/scroll_to_top.spec.js:89:1 › scrollToTop jumps to the first message and retires the button
+[232/305] [chromium] › specs/search_navigation.spec.js:93:1 › the first hit of a long chat is scrolled to, not merely highlighted
+[233/305] [chromium] › specs/search_navigation.spec.js:109:1 › every arrow press lands on its own hit
+[234/305] [chromium] › specs/search_navigation.spec.js:128:1 › walking backwards lands just as precisely
+[235/305] [chromium] › specs/search_navigation.spec.js:142:1 › the hit stays put while the row settles
+[236/305] [chromium] › specs/search_navigation.spec.js:156:1 › moving the active hit does not re-render the whole chat
+[237/305] [chromium] › specs/search_navigation.spec.js:186:1 › the reader can scroll away from a jump that is still settling
+[238/305] [chromium] › specs/search_navigation.spec.js:209:1 › hits inside one long message are reached one by one
+[239/305] [chromium] › specs/search_navigation.spec.js:248:1 › a jump to a hit never leaves the chat blank
+[240/305] [chromium] › specs/selection_window.spec.js:47:1 › selection mode reaches messages outside the render window
+[241/305] [chromium] › specs/selection_window.spec.js:58:1 › selecting a run marks the messages the reader cannot see yet
+[242/305] [chromium] › specs/selection_window.spec.js:84:1 › leaving selection mode clears the whole chat, not just the window
+[243/305] [chromium] › specs/send_follow.spec.js:48:1 › a send lands on the bubble in the same frame it is appended
+[244/305] [chromium] › specs/send_follow.spec.js:85:1 › a plain append does not yank a reader who scrolled up
+[245/305] [chromium] › specs/streaming.spec.js:13:3 › html-table renders as markup at every prefix
+[246/305] [chromium] › specs/streaming.spec.js:13:3 › css-only-checkbox renders as markup at every prefix
+[247/305] [chromium] › specs/streaming.spec.js:13:3 › target-card renders as markup at every prefix
+[248/305] [chromium] › specs/streaming.spec.js:13:3 › stat-card renders as markup at every prefix
+[249/305] [chromium] › specs/streaming.spec.js:13:3 › details-block renders as markup at every prefix
+[250/305] [chromium] › specs/streaming.spec.js:13:3 › svg-icon renders as markup at every prefix
+[251/305] [chromium] › specs/streaming.spec.js:13:3 › br-in-card renders as markup at every prefix
+[252/305] [chromium] › specs/streaming.spec.js:13:3 › regex-card-in-emphasis renders as markup at every prefix
+[253/305] [chromium] › specs/streaming.spec.js:13:3 › pre-with-emphasis renders as markup at every prefix
+[254/305] [chromium] › specs/streaming.spec.js:29:1 › a card is a real element before its closing tag arrives
+[255/305] [chromium] › specs/streaming.spec.js:48:1 › a half-written tag never reaches the reader as text
+[256/305] [chromium] › specs/streaming.spec.js:61:1 › streaming updates reuse the message shadow host
+[257/305] [chromium] › specs/streaming.spec.js:105:1 › a rendered bubble turned typing shows the phase label
+[258/305] [chromium] › specs/streaming.spec.js:162:1 › transient streaming prefixes do not fill the formatter cache
+[259/305] [chromium] › specs/theme_layout.spec.js:60:1 › bindings, conditions and lists render and follow the data
+[260/305] [chromium] › specs/theme_layout.spec.js:96:1 › a template cannot run code, link out or load anything
+[261/305] [chromium] › specs/theme_layout.spec.js:162:1 › a message template places the pieces and keeps them live
+[262/305] [chromium] › specs/theme_layout.spec.js:226:1 › streamed text reaches the template without rebuilding the body
+[263/305] [chromium] › specs/theme_layout.spec.js:366:1 › the header and the compose area follow a theme layout
+[264/305] [chromium] › specs/theme_layout.spec.js:422:1 › drawer cards and tabs follow a theme layout and keep their taps
+[265/305] [chromium] › specs/theme_layout.spec.js:485:1 › a drawer taller than the viewport stays below the status bar
+[266/305] [chromium] › specs/theme_layout.spec.js:553:1 › a theme layout hands a patched prototype no chrome node
+[267/305] [chromium] › specs/theme_layout.spec.js:691:1 › a theme lays out the whole chat
+[268/305] [chromium] › specs/theme_layout.spec.js:786:1 › a theme can style what a message draws inside its shadow root
+[269/305] [chromium] › specs/theme_preview.spec.js:48:1 › the sample messages are drawn by the chat renderer, in the layout the theme picks
+[270/305] [chromium] › specs/theme_preview.spec.js:74:1 › a theme template lays the messages out and reads the theme settings
+[271/305] [chromium] › specs/theme_preview.spec.js:126:1 › a Tavo theme CSS finds the page aliases and the shadow-root content
+[272/305] [chromium] › specs/theme_preview.spec.js:150:1 › the chrome is driven from the preview, with the header and composer on screen
+[273/305] [chromium] › specs/trackpad_relay.spec.js:141:1 › a jittery pan stream comes out even, and nothing of it is lost
+[274/305] [chromium] › specs/trackpad_relay.spec.js:186:1 › the chat stops with the fingers, not a few frames after them
+[275/305] [chromium] › specs/trackpad_relay.spec.js:207:1 › a flick keeps the chat gliding after the fingers leave, then dies away
+[276/305] [chromium] › specs/trackpad_relay.spec.js:231:1 › touching the pad stops the glide where it is
+[277/305] [chromium] › specs/trackpad_relay.spec.js:266:1 › a glide past the end of the chat is dropped, not saved for the way back
+[278/305] [chromium] › specs/trackpad_relay.spec.js:281:1 › reduced motion follows the finger at once and does not glide
+[279/305] [chromium] › specs/translation_overlay.spec.js:68:1 › the button is hidden until translation is switched on
+[280/305] [chromium] › specs/translation_overlay.spec.js:80:1 › pending, translated and original states keep the stored text
+[281/305] [chromium] › specs/translation_overlay.spec.js:128:1 › a re-render keeps the translation; a swipe drops it
+[282/305] [chromium] › specs/translation_overlay.spec.js:169:1 › a result for text the bubble no longer shows is refused
+[283/305] [chromium] › specs/translation_overlay.spec.js:188:1 › the translation cross-fades in
+[284/305] [chromium] › specs/translation_overlay.spec.js:210:1 › a translation stored before the bubble renders paints when it arrives
+[285/305] [chromium] › specs/translation_overlay.spec.js:248:1 › turning translation off restores every original
+[286/305] [chromium] › specs/ui_locale.spec.js:3:1 › live locale updates app chrome without rewriting messages, editors or scripts
+[287/305] [chromium] › specs/variant_swap_targets.spec.js:69:1 › the stack has all three moving parts plus a static footer
+[288/305] [chromium] › specs/variant_swap_targets.spec.js:80:1 › a variant swap slides the reasoning and the clock with the reply
+[289/305] [chromium] › specs/variant_swap_targets.spec.js:116:1 › each moving part gets its own height lock, so the page cannot jump
+[290/305] [chromium] › specs/variant_swap_targets.spec.js:141:1 › the swap leaves every part with clean inline styles
+[291/305] [chromium] › specs/variant_swap_targets.spec.js:156:1 › a second swap aborts the first instead of fighting it
+[292/305] [chromium] › specs/virtual_window.spec.js:63:1 › a jump that lands between the observer margin and the scroll buffer still renders
+[293/305] [chromium] › specs/virtual_window.spec.js:79:1 › a chat left blank does not stay blank once the reader scrolls
+[294/305] [chromium] › specs/virtual_window.spec.js:97:1 › deleting a message does not blank the chat
+[295/305] [chromium] › specs/virtual_window.spec.js:110:1 › an append while the reader is scrolled up does not blank the chat
+[296/305] [chromium] › specs/virtual_window.spec.js:123:1 › a fling straight to the top of a long chat renders the top
+[297/305] [chromium] › specs/virtual_window.spec.js:135:1 › deleting keeps the observer index sets in step with the list
+[298/305] [chromium] › specs/virtual_window.spec.js:162:1 › emptying the chat does not leave the loading screen up
+[299/305] [chromium] › specs/wheel_relay.spec.js:104:1 › a notch scrolls its whole distance over several frames, not in one jump
+[300/305] [chromium] › specs/wheel_relay.spec.js:142:1 › notches in a row add up
+[301/305] [chromium] › specs/wheel_relay.spec.js:153:1 › a notch past the end of the chat is dropped, not saved for the way back
+[302/305] [chromium] › specs/wheel_relay.spec.js:166:1 › the trusted wheel is kept until the relay is on, then dropped
+[303/305] [chromium] › specs/wheel_relay.spec.js:185:1 › reduced motion scrolls a notch at once
+[304/305] [chromium] › specs/wheel_relay.spec.js:207:1 › a chat set anew drops what the last one still owed
+[305/305] [chromium] › specs/wheel_relay.spec.js:219:1 › a wheel listener inside a message sees the relayed notch
+  305 passed (1.9m)
