@@ -1,0 +1,30 @@
+
+Running 26 tests using 2 workers
+
+[1A[2K[1/26] [chromium] › specs/reasoning_block_lifecycle.spec.js:85:1 › regenerating with a non-reasoning model drops the box
+[1A[2K[2/26] [chromium] › specs/reasoning_block_lifecycle.spec.js:77:1 › a reasoning reply renders its box
+[1A[2K[3/26] [chromium] › specs/reasoning_block_lifecycle.spec.js:103:1 › swiping back to the reasoning variation rebuilds the box
+[1A[2K[4/26] [chromium] › specs/reasoning_block_lifecycle.spec.js:128:1 › the rebuilt box sits above the reply, not after it
+[1A[2K[5/26] [chromium] › specs/reasoning_stream_interaction.spec.js:29:3 › split reasoning keeps the answer outside reasoning when untouched
+[1A[2K[6/26] [chromium] › specs/reasoning_stream_interaction.spec.js:29:3 › split reasoning keeps the answer outside reasoning when expanded
+[1A[2K[7/26] [chromium] › specs/reasoning_stream_interaction.spec.js:29:3 › split reasoning keeps the answer outside reasoning when toggled repeatedly
+[1A[2K[8/26] [chromium] › specs/reasoning_stream_interaction.spec.js:46:1 › inline think details stay readable while the answer streams outside them
+[1A[2K[9/26] [chromium] › specs/reasoning_stream_interaction.spec.js:59:1 › closing inline reasoning during a stream keeps it closed on completion
+[1A[2K[10/26] [chromium] › specs/reasoning_stream_interaction.spec.js:70:1 › inline panel state does not leak to another completed variation
+[1A[2K[11/26] [chromium] › specs/reasoning_stream_interaction.spec.js:81:3 › phone layout › a long expanded thought leaves a separate visible answer after completion
+[1A[2K[12/26] [chromium] › specs/streaming.spec.js:13:3 › html-table renders as markup at every prefix
+[1A[2K[13/26] [chromium] › specs/streaming.spec.js:13:3 › css-only-checkbox renders as markup at every prefix
+[1A[2K[14/26] [chromium] › specs/streaming.spec.js:13:3 › target-card renders as markup at every prefix
+[1A[2K[15/26] [chromium] › specs/streaming.spec.js:13:3 › stat-card renders as markup at every prefix
+[1A[2K[16/26] [chromium] › specs/streaming.spec.js:13:3 › details-block renders as markup at every prefix
+[1A[2K[17/26] [chromium] › specs/streaming.spec.js:13:3 › svg-icon renders as markup at every prefix
+[1A[2K[18/26] [chromium] › specs/streaming.spec.js:13:3 › br-in-card renders as markup at every prefix
+[1A[2K[19/26] [chromium] › specs/streaming.spec.js:13:3 › regex-card-in-emphasis renders as markup at every prefix
+[1A[2K[20/26] [chromium] › specs/streaming.spec.js:13:3 › pre-with-emphasis renders as markup at every prefix
+[1A[2K[21/26] [chromium] › specs/streaming.spec.js:27:1 › a card is a real element before its closing tag arrives
+[1A[2K[22/26] [chromium] › specs/streaming.spec.js:43:1 › a half-written tag never reaches the reader as text
+[1A[2K[23/26] [chromium] › specs/streaming.spec.js:53:1 › streaming updates reuse the message shadow host
+[1A[2K[24/26] [chromium] › specs/streaming.spec.js:100:1 › a rendered bubble turned typing shows the phase label
+[1A[2K[25/26] [chromium] › specs/streaming.spec.js:163:1 › transient streaming prefixes do not fill the formatter cache
+[1A[2K[26/26] [chromium] › specs/ui_locale.spec.js:4:1 › live locale updates app chrome without rewriting messages, editors or scripts
+[1A[2K  26 passed (9.5s)

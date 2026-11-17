@@ -1,0 +1,17 @@
+{
+  "base_apk_sha256": "d31398eeef8c801f96a9e4e38550580e66b98d6a76b13c76b778a9266c92b045",
+  "changed_entries": [
+    "assets/flutter_assets/assets/chat_webview/renderer/markdown.js"
+  ],
+  "fixed_asset_sha256": "829e57ab3c264901b2ec9d843c39be1a6f875a5a2c83c61b736bfd1149a306f1",
+  "method": "replace one static JS asset in previously compiled APK; native libraries and Dart code unchanged",
+  "full_user_report_reproduced": false,
+  "confirmed_fix": "inline reasoning disclosure open/closed state survives streaming updates",
+  "device_install_tested": false,
+  "live_model_api_tested": false,
+  "size_bytes": 59091681,
+  "sha256": "d579a7381019114e08fbf27ca784c4e9cf35c68919373b03b70664bd48a04f99",
+  "apk": "Glaze-0.10.1-zh-CN-reasoning-display-r1-arm64-test.apk",
+  "signing": "new ephemeral test certificate; cannot overwrite an installation signed with the old key",
+  "ui_keys": 4237
+}
