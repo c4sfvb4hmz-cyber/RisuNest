@@ -1,0 +1,155 @@
+diff --git a/assets/chat_webview/renderer/markdown.js b/assets/chat_webview/renderer/markdown.js
+index 3a2a047..8904ebf 100644
+--- a/assets/chat_webview/renderer/markdown.js
++++ b/assets/chat_webview/renderer/markdown.js
+@@ -14,6 +14,11 @@ import { retryFailedLocalImages } from './local_image_retry.js';
+ /** Cheap pre-sanitize probe for an embedded `<script>` in formatted HTML. */
+ const SCRIPT_TAG = /<script\b/i;
+ 
++// Each stream rewrites the shadow body. Keep the reader's disclosure choice
++// across cumulative chunks, including the last non-typing update, but never
++// carry it into an unrelated variation or a new generation.
++const renderedStreams = new WeakMap();
++
+ /**
+  * Tell Flutter that a message wanted to run JS while execution is off, so the
+  * app can offer to turn it on. The check has to run on the *formatted* HTML:
+@@ -74,6 +79,13 @@ export function writeShadowContent({
+   if (!host || !host.shadowRoot) return;
+   const root = host.shadowRoot.querySelector('.glaze-message');
+   if (!root) return;
++  const previous = renderedStreams.get(host);
++  const continuesStream = previous && (isTyping || previous.isTyping) &&
++    (text || '').startsWith(previous.text);
++  const reasoningOpen = continuesStream
++    ? [...root.querySelectorAll('details.reasoning-block')].map((el) => el.open)
++    : [];
++  renderedStreams.set(host, { text: text || '', isTyping: !!isTyping });
+   try {
+     if (isTyping && (!text || !text.trim())) {
+       root.innerHTML = '';
+@@ -98,6 +110,9 @@ export function writeShadowContent({
+       allowScripts: allowMessageScripts,
+       allowExternalMedia,
+     });
++    root.querySelectorAll('details.reasoning-block').forEach((el, index) => {
++      if (index < reasoningOpen.length) el.open = reasoningOpen[index];
++    });
+     // Before anything else touches the tree: the placeholder's content moves
+     // behind a shadow boundary, out of reach of the message's own CSS.
+     hydrateUi(root);
+diff --git a/test/webview_js/corpus/cards.js b/test/webview_js/corpus/cards.js
+index 8b1f569..d5f32f4 100644
+--- a/test/webview_js/corpus/cards.js
++++ b/test/webview_js/corpus/cards.js
+@@ -9,6 +9,12 @@
+ // case stops covering the thing that broke.
+ 
+ export const cards = [
++  {
++    id: 'reasoning-stream-interaction',
++    title: 'Inline reasoning followed by a streamed answer',
++    origin: '2026-11-17 user report; synthetic text, not captured model output',
++    text: '<think>先核对问题。</think>最终答复：答案是四。',
++  },
+   {
+     id: 'html-table',
+     title: 'Hand-written HTML table',
+diff --git a/test/webview_js/specs/reasoning_stream_interaction.spec.js b/test/webview_js/specs/reasoning_stream_interaction.spec.js
+new file mode 100644
+--- /dev/null
++++ b/test/webview_js/specs/reasoning_stream_interaction.spec.js
+@@ -0,0 +1,93 @@
++// Synthetic stream matching the reported interaction; not captured API data.
++import { test, expect } from '@playwright/test';
++import { card } from '../corpus/cards.js';
++
++async function boot(page, text = '', reasoning = '先核对问题。') {
++  await page.goto('/assets/chat_webview/index.html');
++  await page.waitForFunction(() => !!window.bridge);
++  await page.evaluate(([text, reasoning]) => {
++    window.streamPacket = (text, reasoning, typing = true) => JSON.stringify({
++      id: 'thinking-reply', role: 'assistant', text, reasoning,
++      timestamp: 1767225600000, displayName: 'Alice',
++      isUser: false, isAssistant: true, isSystem: false, isError: false,
++      isHidden: false, isTyping: typing, isGenerating: typing,
++      isPostGenRunning: false,
++    });
++    window.bridge.setMessages(JSON.stringify([]));
++    window.bridge.appendMessage(window.streamPacket(text, reasoning));
++  }, [text, reasoning]);
++}
++
++async function update(page, text, reasoning, typing = true) {
++  await page.evaluate(([text, reasoning, typing]) =>
++    window.bridge.updateMessage(window.streamPacket(text, reasoning, typing)),
++    [text, reasoning, typing]);
++  await page.waitForTimeout(60);
++}
++
++for (const interaction of ['untouched', 'expanded', 'toggled repeatedly']) {
++  test(`split reasoning keeps the answer outside reasoning when ${interaction}`, async ({ page }) => {
++    await boot(page);
++    const header = page.locator('[data-action="toggle-reasoning"]');
++    if (interaction !== 'untouched') await header.click();
++    await update(page, '', '先核对问题。再检查条件。');
++    if (interaction === 'toggled repeatedly') {
++      await header.click();
++      await header.click();
++    }
++    await update(page, '最终答复：', '先核对问题。再检查条件。');
++    await update(page, '最终答复：答案是四。', '先核对问题。再检查条件。', false);
++    await expect(page.locator('.msg-body > .message-content .glaze-message')).toHaveText('最终答复：答案是四。');
++    await expect(page.locator('.msg-reasoning .glaze-message')).toHaveText('先核对问题。再检查条件。');
++    await expect(page.locator('.msg-reasoning .msg-body')).toHaveCount(0);
++  });
++}
++
++test('inline think details stay readable while the answer streams outside them', async ({ page }) => {
++  await boot(page, '<think>先核对问题。</think>', null);
++  const details = page.locator('.msg-body details.reasoning-block');
++  await details.locator('summary').click();
++  await expect(details).toHaveAttribute('open', '');
++  await update(page, '<think>先核对问题。</think>最终答复：', null);
++  await expect(details).toHaveAttribute('open', '');
++  await update(page, card('reasoning-stream-interaction').text, null, false);
++  await expect(page.locator('.msg-body .reasoning-content')).toHaveText('先核对问题。');
++  await expect(page.locator('.msg-body .glaze-message')).toContainText('最终答复：答案是四。');
++  await expect(details).toHaveAttribute('open', '');
++});
++
++test('closing inline reasoning during a stream keeps it closed on completion', async ({ page }) => {
++  await boot(page, '<think>思考。</think>', null);
++  const details = page.locator('.msg-body details.reasoning-block');
++  await details.locator('summary').click();
++  await update(page, '<think>思考。</think>答', null);
++  await expect(details).toHaveAttribute('open', '');
++  await details.locator('summary').click();
++  await update(page, '<think>思考。</think>答案。', null, false);
++  await expect(details).not.toHaveAttribute('open');
++});
++
++test('inline panel state does not leak to another completed variation', async ({ page }) => {
++  await boot(page, '<think>旧思考。</think>旧答复。', null);
++  await page.locator('.msg-body summary').click();
++  await update(page, '<think>新思考。</think>新答复。', null, false);
++  await expect(page.locator('.msg-body details.reasoning-block')).not.toHaveAttribute('open');
++  await expect(page.locator('.msg-body .reasoning-content')).toHaveText('新思考。');
++});
++
++test.describe('phone layout', () => {
++  test.use({ viewport: { width: 393, height: 851 }, isMobile: true, hasTouch: true });
++
++  test('a long expanded thought leaves a separate visible answer after completion', async ({ page }) => {
++    const thought = '检查条件，逐项分析。\n\n'.repeat(100);
++    await boot(page, '', thought);
++    await page.locator('[data-action="toggle-reasoning"]').tap();
++    await update(page, '正文开始。', thought);
++    await update(page, '正文开始。\n\n最终答复：答案是四。', thought, false);
++    const body = page.locator('.msg-body > .message-content .glaze-message');
++    await expect(body).toContainText('最终答复：答案是四。');
++    await body.scrollIntoViewIfNeeded();
++    await expect(body).toBeInViewport();
++    await expect(page.locator('.msg-reasoning .glaze-message')).not.toContainText('最终答复');
++  });
++});
