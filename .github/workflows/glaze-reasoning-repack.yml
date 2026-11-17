@@ -1,0 +1,119 @@
+name: Glaze reasoning display test revision
+on:
+  push:
+    branches: [fix/glaze-reasoning-stream-20261117]
+    paths: ['.github/workflows/glaze-reasoning-repack.yml']
+permissions:
+  contents: write
+jobs:
+  test-and-package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore pinned Chinese source and apply display-only fix
+        run: |
+          git clone --depth 1 --branch v0.10.1 https://github.com/hydall/Glaze.git glaze
+          test "$(git -C glaze rev-parse HEAD)" = 32def585e23f3d55266484ca8076012549260cf9
+          gzip -dc checkpoints/Glaze-0.10.1-zh-CN.patch.gz > /tmp/zh.patch
+          git -C glaze apply --check /tmp/zh.patch
+          git -C glaze apply /tmp/zh.patch
+          cp glaze/assets/chat_webview/renderer/markdown.js /tmp/baseline-markdown.js
+          git -C glaze apply --check ../checkpoints/reasoning-stream/Glaze-0.10.1-zh-reasoning-display-r1.patch
+          git -C glaze apply ../checkpoints/reasoning-stream/Glaze-0.10.1-zh-reasoning-display-r1.patch
+          python3 glaze/scripts/check_zh_localization.py
+          node --check glaze/assets/chat_webview/renderer/markdown.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Browser interaction regression
+        working-directory: glaze/test/webview_js
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test specs/reasoning_stream_interaction.spec.js specs/reasoning_block_lifecycle.spec.js specs/streaming.spec.js specs/ui_locale.spec.js --workers=2 --reporter=line 2>&1 | tee ../../../reasoning-tests.log
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools build-tools;36.0.0'
+          log-accepted-android-sdk-licenses: false
+      - name: Replace only the verified WebView asset in the previous APK
+        run: |
+          mkdir -p releases/reasoning-r1
+          python3 - <<'PY'
+          import pathlib,zipfile,hashlib,re,json
+          old=pathlib.Path('releases/Glaze-0.10.1-zh-CN-arm64-test-signed.apk')
+          assert hashlib.sha256(old.read_bytes()).hexdigest()=='d31398eeef8c801f96a9e4e38550580e66b98d6a76b13c76b778a9266c92b045'
+          asset='assets/flutter_assets/assets/chat_webview/renderer/markdown.js'
+          baseline=pathlib.Path('/tmp/baseline-markdown.js').read_bytes()
+          fixed=pathlib.Path('glaze/assets/chat_webview/renderer/markdown.js').read_bytes()
+          signature=lambda n: bool(re.fullmatch(r'META-INF/(?:MANIFEST\.MF|[^/]+\.(?:SF|RSA|DSA|EC))',n,re.I))
+          with zipfile.ZipFile(old) as z,zipfile.ZipFile('/tmp/revised-unsigned.apk','w') as out:
+              assert z.testzip() is None
+              assert z.read(asset)==baseline,'APK asset must match the saved localized source before applying the fix'
+              for info in z.infolist():
+                  if not signature(info.filename):
+                      out.writestr(info,fixed if info.filename==asset else z.read(info.filename))
+          with zipfile.ZipFile(old) as oldz,zipfile.ZipFile('/tmp/revised-unsigned.apk') as newz:
+              assert newz.testzip() is None
+              names={n for n in oldz.namelist() if not signature(n)}
+              assert names==set(newz.namelist())
+              changed=[n for n in names if oldz.read(n)!=newz.read(n)]
+              assert changed==[asset],changed
+          pathlib.Path('releases/reasoning-r1/asset-verification.json').write_text(json.dumps({'base_apk_sha256':hashlib.sha256(old.read_bytes()).hexdigest(),'changed_entries':changed,'fixed_asset_sha256':hashlib.sha256(fixed).hexdigest(),'method':'replace one static JS asset in previously compiled APK; native libraries and Dart code unchanged','full_user_report_reproduced':False,'confirmed_fix':'inline reasoning disclosure open/closed state survives streaming updates','device_install_tested':False,'live_model_api_tested':False},ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Align, test sign and verify install package
+        run: |
+          TOOLS="$ANDROID_HOME/build-tools/36.0.0"
+          "$TOOLS/zipalign" -P 16 -f -v 4 /tmp/revised-unsigned.apk /tmp/revised-aligned.apk > releases/reasoning-r1/zipalign.log
+          keytool -genkeypair -keystore "$RUNNER_TEMP/reasoning-test.jks" -storepass android -keypass android -alias androiddebugkey -dname 'CN=Glaze Test Revision,O=Test,C=US' -keyalg RSA -keysize 2048 -validity 10000
+          APK=releases/reasoning-r1/Glaze-0.10.1-zh-CN-reasoning-display-r1-arm64-test.apk
+          "$TOOLS/apksigner" sign --ks "$RUNNER_TEMP/reasoning-test.jks" --ks-pass pass:android --key-pass pass:android --out "$APK" /tmp/revised-aligned.apk
+          "$TOOLS/apksigner" verify --verbose --print-certs "$APK" > releases/reasoning-r1/apk-verification.txt
+          "$TOOLS/zipalign" -c -P 16 -v 4 "$APK" >> releases/reasoning-r1/apk-verification.txt
+          "$TOOLS/aapt" dump badging "$APK" > releases/reasoning-r1/apk-badging.txt
+          sha256sum "$APK" > releases/reasoning-r1/SHA256SUMS
+          unzip -t "$APK" > releases/reasoning-r1/apk-crc.txt
+          python3 - <<'PY'
+          import pathlib,zipfile,json,hashlib,re
+          folder=pathlib.Path('releases/reasoning-r1')
+          apk=next(folder.glob('*.apk'))
+          with zipfile.ZipFile(apk) as new,zipfile.ZipFile('releases/Glaze-0.10.1-zh-CN-arm64-test-signed.apk') as old:
+              signature=lambda n: bool(re.fullmatch(r'META-INF/(?:MANIFEST\.MF|[^/]+\.(?:SF|RSA|DSA|EC))',n,re.I))
+              oldnames={n for n in old.namelist() if not signature(n)}
+              newnames={n for n in new.namelist() if not signature(n)}
+              assert oldnames==newnames
+              changed=[n for n in sorted(oldnames) if old.read(n)!=new.read(n)]
+              assert changed==['assets/flutter_assets/assets/chat_webview/renderer/markdown.js'],changed
+              assert new.testzip() is None
+              en=json.loads(new.read('assets/flutter_assets/assets/translations/en.json'))
+              zh=json.loads(new.read('assets/flutter_assets/assets/translations/zh.json'))
+              assert en.keys()==zh.keys()
+              assert 'lib/arm64-v8a/libapp.so' in newnames
+          report=json.loads((folder/'asset-verification.json').read_text())
+          report.update(size_bytes=apk.stat().st_size,sha256=hashlib.sha256(apk.read_bytes()).hexdigest(),apk=apk.name,signing='new ephemeral test certificate; cannot overwrite an installation signed with the old key',ui_keys=len(zh))
+          (folder/'asset-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(report,ensure_ascii=False))
+          PY
+          cp reasoning-tests.log releases/reasoning-r1/
+          cp checkpoints/reasoning-stream/Glaze-0.10.1-zh-reasoning-display-r1.patch releases/reasoning-r1/
+      - name: Preserve APK and verification in the independent branch
+        run: |
+          git config user.name 'Glaze localization'
+          git config user.email 'glaze-localization@users.noreply.github.com'
+          git add releases/reasoning-r1
+          git commit -m 'Deliver verified reasoning disclosure display test APK and source patch'
+          git pull --rebase origin fix/glaze-reasoning-stream-20261117
+          git push origin HEAD:fix/glaze-reasoning-stream-20261117
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Glaze-reasoning-display-r1
+          path: |
+            releases/reasoning-r1/
+            reasoning-tests.log
+            glaze/test/webview_js/test-results/
+          if-no-files-found: warn
